@@ -22,7 +22,9 @@ public class BinTemplate {
     private Long idBrand;
     private Long bin;
     private String country;
+    private String status;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 
 }

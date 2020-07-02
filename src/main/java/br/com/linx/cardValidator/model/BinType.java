@@ -24,6 +24,6 @@ public class BinType {
 
     private String description;
 
-    @Column(name="createrd_at")
-    private LocalDateTime createrdAt;
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
 }

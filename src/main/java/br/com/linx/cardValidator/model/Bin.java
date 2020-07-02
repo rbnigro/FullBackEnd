@@ -30,6 +30,14 @@ public class Bin {
 
     private String country;
 
+    private String status;
+
+    @Column(name="created_at")
     private LocalDateTime createdAt;
+
+    @Column(name="updated_at")
+    private LocalDateTime updatedAt;
+
+
 
 }

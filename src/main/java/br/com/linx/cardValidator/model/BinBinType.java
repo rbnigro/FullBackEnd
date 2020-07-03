@@ -20,9 +20,12 @@ import javax.persistence.Column;
 @ToString
 public class BinBinType {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name="binid_bin")
     private Long binIdBin;
 
     @Column(name="bin_typeid_type")
-    private Long binTypeIdYype;
+    private Long binTypeIdType;
 }

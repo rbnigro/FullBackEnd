@@ -9,4 +9,6 @@ public interface BinRepository extends JpaRepository<Bin, Integer> {
     List<Bin> findByIdBin(Long id_bin);
 
     List<Bin> findByBin(Long bin);
+
+
 }

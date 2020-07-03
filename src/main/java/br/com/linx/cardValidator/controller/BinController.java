@@ -24,13 +24,17 @@ public class BinController {
 
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    @ApiOperation(value = "Cadastra o numero de bin")
+    @ApiOperation(value = "Cadastra o numero do bin")
     public ResponseEntity<?> registerBin(@RequestBody BinTemplate binTemplate) {
         binTemplate = this.binServer.saveBin(binTemplate);
         return  new ResponseEntity<BinTemplate>(binTemplate, HttpStatus.OK);
     }
 //ajustes
-
+    @DeleteMapping("bin/{id}")
+    @ApiOperation(value = "Remove o numero do bin")
+    public void delete(@PathVariable Integer id){
+        binServer.deleteById(id);
+    }
 
 
 }

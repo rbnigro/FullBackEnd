@@ -3,6 +3,7 @@ package br.com.linx.cardValidator.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
+@ToString
 public class Brand {
 
     @Id
@@ -23,6 +25,7 @@ public class Brand {
     @Column(name="id_brand")
     private int idBrand;
 
+    private String brand;
     private String description;
 
     @Column(name="created_at")

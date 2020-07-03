@@ -4,6 +4,7 @@ package br.com.linx.cardValidator.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,13 +17,12 @@ import javax.persistence.Column;
 @NoArgsConstructor
 @Data
 @Entity
+@ToString
 public class BinBinType {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_bin")
-    private Long idBin;
+    @Column(name="binid_bin")
+    private Long binIdBin;
 
-    @Column(name="id_type")
-    private Long idType;
+    @Column(name="bin_typeid_type")
+    private Long binTypeIdYype;
 }

@@ -4,6 +4,7 @@ package br.com.linx.cardValidator.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,10 +17,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
+@ToString
 public class Bin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name="id_bin")
     private Long idBin;
 
@@ -27,9 +30,7 @@ public class Bin {
     private Long idBrand;
 
     private Long bin;
-
     private String country;
-
     private String status;
 
     @Column(name="created_at")
@@ -37,7 +38,5 @@ public class Bin {
 
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
-
-
 
 }

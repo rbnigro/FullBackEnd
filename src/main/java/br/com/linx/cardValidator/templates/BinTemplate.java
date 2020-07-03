@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @ApiModel
 public class BinTemplate {
 
-
     private Long idBin;
     private Long idBrand;
     private Long bin;
@@ -25,6 +24,5 @@ public class BinTemplate {
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 
 }

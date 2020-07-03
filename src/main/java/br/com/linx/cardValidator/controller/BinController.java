@@ -29,7 +29,7 @@ public class BinController {
         binTemplate = this.binServer.saveBin(binTemplate);
         return  new ResponseEntity<BinTemplate>(binTemplate, HttpStatus.OK);
     }
-
+//ajustes
 
 
 

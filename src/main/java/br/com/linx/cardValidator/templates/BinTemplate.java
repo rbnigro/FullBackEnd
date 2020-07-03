@@ -1,13 +1,10 @@
 package br.com.linx.cardValidator.templates;
 
-
-
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 
 import java.time.LocalDateTime;
-
 
 @Getter
 @Setter

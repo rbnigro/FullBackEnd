@@ -1,6 +1,5 @@
 package br.com.linx.cardValidator.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

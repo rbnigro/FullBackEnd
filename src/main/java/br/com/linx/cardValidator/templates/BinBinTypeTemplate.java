@@ -13,6 +13,6 @@ import lombok.*;
 public class BinBinTypeTemplate {
 
     private Long binIdBin;
-    private Long binTypeIdYype;
+    private Long binTypeIdType;
 
 }

@@ -24,5 +24,5 @@ public class BinBinType {
     private Long binIdBin;
 
     @Column(name="bin_typeid_type")
-    private Long binTypeIdYype;
+    private Long binTypeIdType;
 }

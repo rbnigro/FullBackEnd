@@ -28,6 +28,9 @@ public class BinController {
         return new ResponseEntity<BinTemplate>(binTemplate, HttpStatus.OK);
     }
 
+
+
+
  //   @DeleteMapping("bin/{id}")
  //   @ApiOperation(value = "Remove o numero do bin")
  //   public void delete(@PathVariable Integer id){

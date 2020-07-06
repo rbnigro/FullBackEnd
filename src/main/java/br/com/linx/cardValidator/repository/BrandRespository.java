@@ -9,4 +9,6 @@ public interface BrandRespository extends JpaRepository<Brand, Integer> {
 
     List<Brand> findByIdBrand(int id_brand);
 
+
+
 }

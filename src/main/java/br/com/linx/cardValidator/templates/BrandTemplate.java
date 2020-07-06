@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ApiModel
-public class brandTemplate {
+public class BrandTemplate {
 
     private int idBrand;
     private String brand;

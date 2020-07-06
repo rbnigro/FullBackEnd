@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BinTypeRepository extends JpaRepository<BinType, Integer> {
 
-    List<Brand> findByIdType(int id_type);
+    List<BinType> findByIdType(int id_type);
 
 }

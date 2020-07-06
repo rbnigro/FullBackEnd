@@ -23,12 +23,10 @@ public class BinTypeServer {
     public BinTypeTemplate saveBinType (BinTypeTemplate binTypeTemplate){
 
         log.info("[CARDVALIDATOR] -saving BinType");
-        /*BinType binTypeModel = binTypeRepository.save(BinTypeTemplateToBinTypeModel.MAPPER.binTypeMapper(binTypeTemplate));
-        return BinTypeModelToBinTypeTemplate.MAPPER.binTypeTemplateMapper(binTypeModel);*/
-
         BinType binTypeModel =
-                binTypeRepository.save(BinTypeTemplateToBinTypeModel.MAPPER.binTypeMapper(binTypeTemplate));
+        binTypeRepository.save(BinTypeTemplateToBinTypeModel.MAPPER.binTypeMapper(binTypeTemplate));
         return BinTypeModelToBinTypeTemplate.MAPPER.binTypeTemplateMapper(binTypeModel);
+
     }
 
 }

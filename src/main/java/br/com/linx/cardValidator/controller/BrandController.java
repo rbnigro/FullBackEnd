@@ -22,7 +22,7 @@ public class BrandController {
     @Autowired
     private BrandServer brandServer;
 
-    @RequestMapping(value = "/",method = RequestMethod.POST)
+    @RequestMapping(value = "/brand",method = RequestMethod.POST)
     @ApiOperation(value = "Cadastra o numero do brand")
     public ResponseEntity<?> registerBrand(@RequestBody BrandTemplate brandTemplate) {
         brandTemplate = this.brandServer.saveBrand(brandTemplate);

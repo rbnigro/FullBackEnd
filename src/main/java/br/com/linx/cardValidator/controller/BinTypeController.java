@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/bin")
-@Api(value = "Realiza o crud do bin")
+@RestController("/binType")
+@Api(value = "Realiza o crud do binType")
 @Slf4j
 public class BinTypeController {
 
     @Autowired
     private BinTypeServer binTypeServer;
 
-    @RequestMapping(value = "/",method = RequestMethod.POST)
+    @RequestMapping(value = "/binType",method = RequestMethod.POST)
     @ApiOperation(value = "Cadastra o binType")
     public ResponseEntity<?> registerBinType(@RequestBody BinTypeTemplate binTypeTemplate) {
         binTypeTemplate = this.binTypeServer.saveBinType(binTypeTemplate);

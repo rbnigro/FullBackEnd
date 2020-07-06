@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BinBinTypeRepository extends JpaRepository<BinBinType, Integer>  {
 
-    /*List<BinBinType> findByIdBin(Long id_bin);
+    //List<BinBinType> findByIdBin(Long id_bin);
 
-    List<BinBinType> findByIdType(Long id_type);*/
+    //List<BinBinType> findByIdType(Long id_type);
 }

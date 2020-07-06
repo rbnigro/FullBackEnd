@@ -1,7 +1,6 @@
 package br.com.linx.cardValidator.controller;
 
 import br.com.linx.cardValidator.services.BrandServer;
-import br.com.linx.cardValidator.templates.BinTemplate;
 import br.com.linx.cardValidator.templates.BrandTemplate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

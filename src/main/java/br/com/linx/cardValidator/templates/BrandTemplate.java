@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @ApiModel
 public class BrandTemplate {
 
-    private int idBrand;
-    private String brand;
-    private String description;
-    private LocalDateTime createdAt;
+        private int idBrand;
+        private String brand;
+        private String description;
+        private LocalDateTime createdAt;
 
 }

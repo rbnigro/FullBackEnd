@@ -1,7 +1,7 @@
 ------
 Schema
 ------
-CREATE DATABASE 'cardvalidator' /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE SCHEMA 'cardvalidator' ;
 
 ------
 Tabelas

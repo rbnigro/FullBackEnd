@@ -37,8 +37,7 @@ public class BinServer {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Bin findByIdBin(Integer id) {
-        Bin bin = new Bin();
-        binRepository.findByIdBin(id);
+        Bin bin = binRepository.findByIdBin(id);
         return bin;
     }
 

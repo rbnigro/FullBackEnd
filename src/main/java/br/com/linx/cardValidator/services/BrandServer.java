@@ -26,7 +26,6 @@ public class BrandServer {
     @Autowired
     private BrandRespository brandRespository;
 
-
     public BrandTemplate saveBrand (BrandTemplate brandTemplate){
 
         log.info("[CARDVALIDATOR] -saving brand");

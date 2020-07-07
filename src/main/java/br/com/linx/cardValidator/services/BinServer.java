@@ -36,10 +36,12 @@ public class BinServer {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Bin findByIdBin(Long id) {
-        Bin bin = binRepository.findByIdBin(id);
+    public Bin findByIdBin(Long id_bin) {
+        Bin bin = binRepository.findByIdBin(id_bin);
         return bin;
     }
+
+   // findByIdBrand(Long id_brand)
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public List<Bin> findAll() {

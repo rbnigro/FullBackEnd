@@ -34,10 +34,10 @@ public class BinController {
  //       binServer.deleteById(id);
  //   }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id_bin}")
     @ApiOperation(value = "Busca Bin específico")
-    public Bin findByIdBin(@PathVariable Long id) {
-        return binServer.findByIdBin(id);
+    public Bin findByIdBin(@PathVariable Long id_bin) {
+        return binServer.findByIdBin(id_bin);
    }
 
     @GetMapping(path = "/bins")

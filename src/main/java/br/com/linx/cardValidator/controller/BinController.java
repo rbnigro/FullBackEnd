@@ -34,13 +34,24 @@ public class BinController {
  //       binServer.deleteById(id);
  //   }
 
-    @GetMapping(path = "/{id_bin}")
+    @GetMapping(path = "bin/idbin/{id_bin}")
     @ApiOperation(value = "Busca Bin específico")
     public Bin findByIdBin(@PathVariable Long id_bin) {
         return binServer.findByIdBin(id_bin);
    }
+    @GetMapping(path = "bin/idbrand/{id_brand}")
+    @ApiOperation(value = "Busca Brand dentro do Bin")
+    public Bin findByIdBrand(@PathVariable Long id_brand) {
+        return binServer.findByIdBrand(id_brand);
+    }
 
-    @GetMapping(path = "/bins")
+    @GetMapping(path = "bin/bin/{bin}")
+    @ApiOperation(value = "Busca Brand dentro do Bin")
+    public Bin findByBin(@PathVariable Long bin) {
+        return binServer.findByBin(bin);
+    }
+
+    @GetMapping(path = "bin/bins")
     @ApiOperation(value = "Busca todos os Bin's")
     public List<Bin> findAll() {
         return binServer.findAll();

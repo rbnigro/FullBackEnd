@@ -3,10 +3,10 @@ package br.com.linx.cardValidator.repository;
 import br.com.linx.cardValidator.model.Bin;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BinRepository extends JpaRepository<Bin, Integer> {
+public interface BinRepository extends JpaRepository<Bin, Long> {
 
-    <Optional>Bin findByIdBin(Integer id_bin);
+    Bin findByIdBin(Long id_bin);
 
-    Bin findByBin(Integer bin);
+    Bin findByBin(Long bin);
 
 }

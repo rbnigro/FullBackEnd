@@ -31,12 +31,12 @@ public class BinServer {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         binRepository.deleteById(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Bin findByIdBin(Integer id) {
+    public Bin findByIdBin(Long id) {
         Bin bin = binRepository.findByIdBin(id);
         return bin;
     }

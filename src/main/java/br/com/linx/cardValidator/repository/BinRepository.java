@@ -10,7 +10,4 @@ public interface BinRepository extends JpaRepository<Bin, Integer> {
 
     List<Bin> findByBin(Long bin);
 
-    //Bin
-
-
 }

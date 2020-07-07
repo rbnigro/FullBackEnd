@@ -1,6 +1,5 @@
 package br.com.linx.cardValidator.services;
 
-
 import br.com.linx.cardValidator.mapper.BinModelToBinTemplate;
 import br.com.linx.cardValidator.mapper.BinTemplateToBinModel;
 import br.com.linx.cardValidator.model.Bin;
@@ -42,7 +41,5 @@ public class BinServer {
         binRepository.findAll().forEach(bins::add);
         return bins;
     }
-
-
 
 }

@@ -1,6 +1,8 @@
 package br.com.linx.cardValidator.controller;
 
 
+import br.com.linx.cardValidator.model.Bin;
+import br.com.linx.cardValidator.model.BinType;
 import br.com.linx.cardValidator.services.BinServer;
 import br.com.linx.cardValidator.services.BinTypeServer;
 import br.com.linx.cardValidator.templates.BinTemplate;
@@ -11,10 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController("/binType")
 @Api(value = "Realiza o crud do binType")
@@ -31,6 +32,10 @@ public class BinTypeController {
         return new ResponseEntity<BinTypeTemplate>(binTypeTemplate, HttpStatus.OK);
     }
 
-
+    @GetMapping("bin/binTypes")
+    @ApiOperation("Busca Todos os Bin Type´s")
+    public List<BinType> findAll() {
+        return binTypeServer.findAll();
+    }
 
 }

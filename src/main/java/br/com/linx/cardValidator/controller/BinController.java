@@ -28,9 +28,6 @@ public class BinController {
         return new ResponseEntity<BinTemplate>(binTemplate, HttpStatus.OK);
     }
 
-
-
-
  //   @DeleteMapping("bin/{id}")
  //   @ApiOperation(value = "Remove o numero do bin")
  //   public void delete(@PathVariable Integer id){
@@ -48,13 +45,4 @@ public class BinController {
     public List<Bin> findAll() {
         return binServer.findAll();
     }
-
-   // @GetMapping("bin/binTypes")
-   // @ApiOperation("Busca Todos os Bin Type´s")
-   // public List<Bin>
-   // BinType.findAll
-
-   // @GetMapping("bin/brands")
-   // Busca Todos os Brand´s
-   // BrandFindAll
 }

@@ -1,5 +1,7 @@
 package br.com.linx.cardValidator.controller;
 
+import br.com.linx.cardValidator.model.Bin;
+import br.com.linx.cardValidator.model.Brand;
 import br.com.linx.cardValidator.services.BrandServer;
 import br.com.linx.cardValidator.templates.BrandTemplate;
 import io.swagger.annotations.Api;
@@ -8,10 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController("/brand")
@@ -29,4 +30,9 @@ public class BrandController {
         return new ResponseEntity<BrandTemplate>(brandTemplate, HttpStatus.OK);
     }
 
+    @GetMapping("bin/brands")
+    @ApiOperation(value = "Busca Todos os Brand´s")
+    public List<Brand> findAll() {
+        return brandServer.findAll();
+    }
 }

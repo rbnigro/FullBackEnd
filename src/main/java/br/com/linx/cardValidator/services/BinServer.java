@@ -36,6 +36,13 @@ public class BinServer {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Bin findByIdBin(Integer id) {
+        Bin bin = new Bin();
+        binRepository.findByIdBin(id);
+        return bin;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public List<Bin> findAll() {
         List<Bin> bins = new ArrayList<>();
         binRepository.findAll().forEach(bins::add);

@@ -34,15 +34,29 @@ public class BinController {
  //       binServer.deleteById(id);
  //   }
 
- //   @GetMapping("bin/{id}}")
- //   @ApiOperation(value = "Busca registro específico")
- //   public List<Bin> findAll() {
- //       return binServer.findAll();
- //  }
+    @GetMapping(path = "bin/{id}}")
+    @ApiOperation(value = "Busca Bin específico")
+    public Bin findByIdBin(@PathVariable Integer id) {
+        return binServer.findByIdBin(id);
+   }
 
     @GetMapping("bin/bins")
     @ApiOperation(value = "Busca todos os Bin's")
     public List<Bin> findAll() {
         return binServer.findAll();
     }
+
+    /*
+    * @PutMapping(value="/{id}")
+public ResponseEntity update(@PathVariable("id") long id,
+                                      @RequestBody Contact contact) {
+   return repository.findById(id)
+           .map(record -> {
+               record.setName(contact.getName());
+               record.setEmail(contact.getEmail());
+               record.setPhone(contact.getPhone());
+               Contact updated = repository.save(record);
+               return ResponseEntity.ok().body(updated);
+           }).orElse(ResponseEntity.notFound().build());
+}*/
 }

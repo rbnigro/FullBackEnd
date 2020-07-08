@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @ApiModel
 public class BrandTemplate {
 
-        private int idBrand;
+        private Long idBrand; //ajuste
         private String brand;
         private String description;
         private LocalDateTime createdAt;

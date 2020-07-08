@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class Brand {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_brand")
     private Long idBrand;
 

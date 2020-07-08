@@ -1,5 +1,6 @@
 package br.com.linx.cardValidator.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,7 @@ import java.time.LocalDateTime;
 public class Bin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_bin")
     private Long idBin;
 
@@ -33,9 +33,11 @@ public class Bin {
     private String status;
 
     @Column(name="created_at")
+    @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime createdAt;
 
     @Column(name="updated_at")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime updatedAt;
 
 }

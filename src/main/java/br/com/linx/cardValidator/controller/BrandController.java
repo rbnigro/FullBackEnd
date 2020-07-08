@@ -30,7 +30,7 @@ public class BrandController {
         return new ResponseEntity<BrandTemplate>(brandTemplate, HttpStatus.OK);
     }
 
-    @GetMapping("bin/brands")
+    @GetMapping("brand/brands")
     @ApiOperation(value = "Busca Todos os Brand´s")
     public List<Brand> findAll() {
         return brandServer.findAll();

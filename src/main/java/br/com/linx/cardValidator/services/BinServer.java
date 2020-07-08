@@ -41,7 +41,17 @@ public class BinServer {
         return bin;
     }
 
-   // findByIdBrand(Long id_brand)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Bin findByIdBrand(Long id_brand) {
+        Bin bin = binRepository.findByIdBrand(id_brand);
+        return bin;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Bin findByBin(Long numeroBin) {
+        Bin bin = binRepository.findByBin(numeroBin);
+        return bin;
+    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public List<Bin> findAll() {

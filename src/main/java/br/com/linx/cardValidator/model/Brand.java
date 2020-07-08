@@ -25,7 +25,10 @@ public class Brand {
     @Column(name="id_brand")
     private Long idBrand;
 
+    @Column(length = 10)
     private String brand;
+
+    @Column(length = 50)
     private String description;
 
     @Column(name="created_at")

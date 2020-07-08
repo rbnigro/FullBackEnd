@@ -34,6 +34,18 @@ public class BrandServer {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Brand findByIdBrand(Long id_brand) {
+        Brand brand = brandRespository.findByIdBrand(id_brand);
+        return brand;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Brand findByBrand(Long numeroBrand) {
+        Brand brand = brandRespository.findByBrand(numeroBrand);
+        return brand;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public List<Brand> findAll() {
         List<Brand> brand = new ArrayList<>();
         brandRespository.findAll().forEach(brand::add);

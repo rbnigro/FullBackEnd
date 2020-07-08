@@ -63,7 +63,7 @@ public ResponseEntity update(@PathVariable("id") long id,
                return ResponseEntity.ok().body(updated);
            }).orElse(ResponseEntity.notFound().build());
 }*/
-
+ //exclusao logica
     @RequestMapping(value = "/{id}/{status}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Inativa um Bin específico")
     public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long id_bin, @PathVariable("status") String status ) {

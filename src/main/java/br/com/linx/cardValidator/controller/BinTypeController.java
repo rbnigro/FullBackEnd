@@ -1,11 +1,7 @@
 package br.com.linx.cardValidator.controller;
 
-
-import br.com.linx.cardValidator.model.Bin;
 import br.com.linx.cardValidator.model.BinType;
-import br.com.linx.cardValidator.services.BinServer;
 import br.com.linx.cardValidator.services.BinTypeServer;
-import br.com.linx.cardValidator.templates.BinTemplate;
 import br.com.linx.cardValidator.templates.BinTypeTemplate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/binType")
+@RestController
+@RequestMapping("/binType")
 @Api(value = "Realiza o crud do binType")
 @Slf4j
 public class BinTypeController {

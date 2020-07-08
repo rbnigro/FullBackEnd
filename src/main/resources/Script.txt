@@ -7,63 +7,47 @@ CREATE SCHEMA 'cardvalidator' ;
 Tabelas
 -------
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-CREATE TABLE 'brand' (
-  'idbrand' int(11) NOT NULL,
-  'brand' varchar(10) DEFAULT NULL,
-  'description' varchar(50) DEFAULT NULL,
-  'created_at' datetime NOT NULL,
-  PRIMARY KEY ('idbrand'),
-  UNIQUE KEY 'brand_UNIQUE' ('brand')
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE brand (
+  id_brand int(11) NOT NULL,
+  brand varchar(10) DEFAULT NULL,
+  description varchar(50) DEFAULT NULL,
+  created_at datetime NOT NULL);
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-CREATE TABLE 'bin' (
-  'id_bin' int(11) NOT NULL,
-  'id_brand' int(11) NOT NULL,
-  'bin' int(11) DEFAULT NULL,
-  'country' varchar(10) DEFAULT NULL,
-  'status' varchar(10) NOT NULL,
-  'created_at' datetime NOT NULL,
-  'updated_at' datetime DEFAULT NULL,
-  PRIMARY KEY ('id_bin'),
-  UNIQUE KEY 'bin_UNIQUE' ('bin'),
-  KEY 'fk_brand_idx' ('id_brand'),
-  CONSTRAINT 'fk_brand' FOREIGN KEY ('id_brand') REFERENCES 'brand' ('idbrand') ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE bin (
+  id_bin int(11) NOT NULL,
+  id_brand int(11) NOT NULL,
+  bin int(11) DEFAULT NULL,
+  country varchar(10) DEFAULT NULL,
+  status varchar(10) NOT NULL,
+  created_at datetime NOT NULL,
+  updated_at datetime DEFAULT NULL);
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-CREATE TABLE 'bin_type' (
-  'id_type' int(11) NOT NULL,
-  'description' varchar(50) DEFAULT NULL,
-  'created_at' datetime NOT NULL,
-  PRIMARY KEY ('id_type'),
-  UNIQUE KEY 'description_UNIQUE' ('description')
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE bin_type (
+  id_type int(11) NOT NULL,
+  description varchar(50) DEFAULT NULL,
+  created_at datetime NOT NULL);
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-CREATE TABLE 'bin_bin_type' (
-  'binid_bin' int(11) NOT NULL,
-  'bin_typeid_type' int(11) NOT NULL,
-  PRIMARY KEY ('binid_bin','bin_typeid_type'),
-  KEY 'bintpe_idx' ('bin_typeid_type'),
-  CONSTRAINT 'bintpe' FOREIGN KEY ('bin_typeid_type') REFERENCES 'bin_type' ('id_type') ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT 'binbintype' FOREIGN KEY ('binid_bin') REFERENCES 'bin' ('id_bin') ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE bin_bin_type (
+  binid_bin int(11) NOT NULL,
+  bin_typeid_type int(11) NOT NULL);
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 ------
 Dados
 -----
-INSERT INTO 'cardvalidator'.'brand' ('idbrand', 'brand', 'description', 'created_at') VALUES(1, '506722', 'elo', '2020-07-02 00:00:00');
-INSERT INTO 'cardvalidator'.'brand' ('idbrand', 'brand', 'description', 'created_at') VALUES(2, '485464', 'visa', '2020-07-02 00:00:00');
+INSERT INTO brand (idbrand, brand, description, created_at) VALUES(1, '506722', 'elo', '2020-07-02 00:00:00');
+INSERT INTO brand (idbrand, brand, description, created_at) VALUES(2, '485464', 'visa', '2020-07-02 00:00:00');
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-INSERT INTO 'cardvalidator'.'bin' ('id_bin', 'id_brand', 'bin', 'country', 'status', 'created_at', 'updated_at')
+INSERT INTO bin (id_bin, id_brand, bin, country, status, created_at, updated_at)
 VALUES (1, 1, 506744, 'brasil', 'ativo', '2020-07-02', null);
-INSERT INTO 'cardvalidator'.'bin' ('id_bin', 'id_brand', 'bin', 'country', 'status', 'created_at', 'updated_at')
+INSERT INTO bin (id_bin, id_brand, bin, country, status, created_at, updated_at)
 VALUES (2, 1, 548799, 'brasil', 'ativo', '2020-07-02 00:00:00', '2020-07-03 00:00:00');
-INSERT INTO 'cardvalidator'.'bin' ('id_bin', 'id_brand', 'bin', 'country', 'status', 'created_at', 'updated_at')
+INSERT INTO bin (id_bin, id_brand, bin, country, status, created_at, updated_at)
 VALUES (3, 2, 548966, 'brasil', 'inativo', '2020-07-02 00:00:00', '');
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-INSERT INTO 'cardvalidator'.'bin_type' ('id_type', 'description', 'created_at') VALUES (1,'debito','2020-07-02 00:00:00');
-INSERT INTO 'cardvalidator'.'bin_type' ('id_type', 'description', 'created_at') VALUES (2,'credito','2020-07-02 00:00:00');
-INSERT INTO 'cardvalidator'.'bin_type' ('id_type', 'description', 'created_at') VALUES (3,'refeicao','2020-07-02 00:00:00');
+INSERT INTO bin_type' (id_type, description, created_at) VALUES (1,'debito','2020-07-02 00:00:00');
+INSERT INTO bin_type' (id_type, description, created_at) VALUES (2,'credito','2020-07-02 00:00:00');
+INSERT INTO bin_type' (id_type, description, created_at) VALUES (3,'refeicao','2020-07-02 00:00:00');
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-INSERT INTO 'cardvalidator'.'bin_bin_type' ('binid_bin', 'bin_typeid_type') VALUES (1, 1);
-INSERT INTO 'cardvalidator'.'bin_bin_type' ('binid_bin', 'bin_typeid_type') VALUES (2, 2);
+INSERT INTO bin_bin_type (binid_bin, bin_typeid_type) VALUES (1, 1);
+INSERT INTO bin_bin_type (binid_bin, bin_typeid_type) VALUES (2, 2);
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -

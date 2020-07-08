@@ -1,6 +1,5 @@
 package br.com.linx.cardValidator.controller;
 
-import br.com.linx.cardValidator.model.Bin;
 import br.com.linx.cardValidator.model.Brand;
 import br.com.linx.cardValidator.services.BrandServer;
 import br.com.linx.cardValidator.templates.BrandTemplate;
@@ -15,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RestController("/brand")
+@RestController
+@RequestMapping("/brand")
 @Api(value = "Realiza o crud do brand")
 @Slf4j
 public class BrandController {

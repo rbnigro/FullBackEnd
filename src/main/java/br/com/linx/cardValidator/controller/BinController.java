@@ -14,15 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//teste1
-/*@RestController("/bin")
-@Api(value = "Realiza o crud do bin")
-@Slf4j*/
 @RestController
 @RequestMapping("bin")
 @Api(value = "Realiza o crud do bin")
 @Slf4j
-
 public class BinController {
 
     @Autowired
@@ -50,20 +45,7 @@ public class BinController {
         return binServer.findAll();
     }
 
-    /*
-    * @PutMapping(value="/{id}")
-public ResponseEntity update(@PathVariable("id") long id,
-                                      @RequestBody Contact contact) {
-   return repository.findById(id)
-           .map(record -> {
-               record.setName(contact.getName());
-               record.setEmail(contact.getEmail());
-               record.setPhone(contact.getPhone());
-               Contact updated = repository.save(record);
-               return ResponseEntity.ok().body(updated);
-           }).orElse(ResponseEntity.notFound().build());
-}*/
- //exclusao logica
+    //exclusao logica
     @RequestMapping(value = "/{id}/{status}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Inativa um Bin específico")
     public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long id_bin, @PathVariable("status") String status ) {

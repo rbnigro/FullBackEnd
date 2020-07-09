@@ -45,7 +45,7 @@ public class BinController {
         return binServer.findAll();
     }
 
-    //exclusao logica
+    //exclusao logica -
     @RequestMapping(value = "/{id}/{status}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Inativa um Bin específico")
     public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long id_bin, @PathVariable("status") String status ) {

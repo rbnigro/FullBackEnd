@@ -21,7 +21,7 @@ import javax.persistence.Column;
 public class BinBinType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
     @Column(name="binid_bin")
     private Long binIdBin;

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @ApiModel
 public class BinTypeTemplate {
 
-    private int idType;
+    private Long idType;
     private String description;
     private LocalDateTime createdAt;
 }

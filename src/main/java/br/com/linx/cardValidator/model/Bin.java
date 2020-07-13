@@ -27,9 +27,13 @@ public class Bin {
     @Column(name="id_brand")
     private Long idBrand;
 
-    @Column (unique = true)
+    @Column(unique = true)
     private Long bin;
+
+    @Column(length = 10)
     private String country;
+
+    @Column(length = 10)
     private String status;
 
     @Column(name="created_at")

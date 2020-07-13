@@ -25,6 +25,7 @@ public class BinType {
     @Column(name="id_type")
     private Long idType;
 
+    @Column(length = 50)
     private String description;
 
     @Column(name="created_at")

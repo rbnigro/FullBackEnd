@@ -37,7 +37,7 @@ public class BinController<binTemplate> {
 
     //inclusão massiva
     @RequestMapping(value="/all", method = RequestMethod.POST)
-    @ApiOperation(value = "Cadastra o numero do bin")
+    @ApiOperation(value = "Cadastra o numero do bin (em lote)")
     public ResponseEntity<?> registerAllBin(@RequestBody(required = true) List<BinTemplate> binTemplate) {
         binTemplate = this.binServer.saveBin(binTemplate);
         return new ResponseEntity<List<BinTemplate>>(binTemplate, HttpStatus.OK);

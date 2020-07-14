@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("binType")
+@RequestMapping("cardvalidator")
 @Api(value = "Realiza o crud do binType")
 @Slf4j
 public class BinTypeController{
@@ -24,14 +24,14 @@ public class BinTypeController{
     @Autowired
     private BinTypeServer binTypeServer;
 
-    @RequestMapping(value = "/",method = RequestMethod.POST)
+    @RequestMapping(value = "/binType/",method = RequestMethod.POST)
     @ApiOperation(value = "Cadastra o binType")
     public ResponseEntity<?> registerBinType(@RequestBody BinTypeTemplate binTypeTemplate) {
         binTypeTemplate = this.binTypeServer.saveBinType(binTypeTemplate);
         return new ResponseEntity<BinTypeTemplate>(binTypeTemplate, HttpStatus.OK);
     }
 
-    @GetMapping("bin/binTypes")
+    @GetMapping("/binType/bin/binTypes")
     @ApiOperation("Busca Todos os Bin Type´s")
     public List<BinType> findAll() {
         return binTypeServer.findAll();
@@ -51,7 +51,7 @@ public class BinTypeController{
     }*/
 
     //alteracao de dados - id_brand, bin, country, status
-    @RequestMapping(value = "/alter/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/binType/alter/{id}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Altera um tipo específica")
     public ResponseEntity<?> alterType(@PathVariable("id") Long id,
                                         @RequestBody(required = true) BinTypeTemplate binTypeTemplateTemplate ) {

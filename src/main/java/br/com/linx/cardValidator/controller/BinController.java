@@ -16,7 +16,7 @@ import javax.ws.rs.PathParam;
 import java.util.List;
 
 @RestController
-@RequestMapping("bin")
+@RequestMapping("cardvalidator")
 @Api(value = "Realiza o crud do bin")
 @Slf4j
 public class BinController<binTemplate> {
@@ -28,7 +28,7 @@ public class BinController<binTemplate> {
     private BinRepository binRepository;
 
     //inclusao unitaria
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/bin/", method = RequestMethod.POST)
     @ApiOperation(value = "Cadastra o numero do bin")
     public ResponseEntity<?> registerBin(@RequestBody BinTemplate binTemplate) {
         binTemplate = this.binServer.saveBin(binTemplate);
@@ -36,7 +36,7 @@ public class BinController<binTemplate> {
     }
 
     //inclusão massiva
-    @RequestMapping(value="/all", method = RequestMethod.POST)
+    @RequestMapping(value="/bin/all", method = RequestMethod.POST)
     @ApiOperation(value = "Cadastra o numero do bin (em lote)")
     public ResponseEntity<?> registerAllBin(@RequestBody(required = true) List<BinTemplate> binTemplate) {
         binTemplate = this.binServer.saveBin(binTemplate);
@@ -44,7 +44,7 @@ public class BinController<binTemplate> {
     }
 
 
-    @RequestMapping(value = "/bins/{idBin}", method = RequestMethod.GET)
+    @RequestMapping(value = "/bin/bins/{idBin}", method = RequestMethod.GET)
     @ApiOperation(value = "Busca um bin especifico")
     public Bin findByIdBin(@PathVariable("idBin") Long idBin) {
 
@@ -52,7 +52,7 @@ public class BinController<binTemplate> {
     }
 
 
-    @RequestMapping(value = "/bins", method = RequestMethod.GET)
+    @RequestMapping(value = "/bin/bins", method = RequestMethod.GET)
     @ApiOperation(value = "Busca todos os numeros de bin")
     public List<Bin> findAll() {
         return binServer.findAll();
@@ -60,7 +60,7 @@ public class BinController<binTemplate> {
 
 
     //alteracao de dados - id_brand, bin, country, status
-    @RequestMapping(value = "/alter/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/bin/alter/{id}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Altera um Bin específico")
     public ResponseEntity<?> markEntryAsReadAlter(@PathVariable("id") Long id,
                                               @RequestBody(required = true) BinTemplate binTemplate ) {
@@ -72,7 +72,7 @@ public class BinController<binTemplate> {
     }
 
     //exclusao logica -
-    @RequestMapping(value = "/{id}/{status}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/bin/{id}/{status}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Inativa um Bin específico")
     public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long id_bin, @PathVariable("status") String status ) {
         if( binServer.markEntryAsRead(id_bin,status)){

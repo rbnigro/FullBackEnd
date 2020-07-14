@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${API_PORT}
 
 spring:
   main:
@@ -8,13 +8,13 @@ spring:
     discovery:
       enabled: false
   datasource:
-    url: jdbc:mysql://localhost:3306/cardValidator
-    username : root
-    password : root
+    url: jdbc:mysql://${API_DATABASE_URL}/${API_DATABASE_NAME}?createDatabaseIfNotExist=false&useSSL=${API_DATABASE_USE_SSL}&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
+    username: ${API_DATABASE_USERNAME}
+    password: ${API_DATABASE_PASSWORD}
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect

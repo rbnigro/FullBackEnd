@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("brand")
+@RequestMapping("cardvalidator")
 @Api(value = "Realiza o crud do brand")
 @Slf4j
 public class BrandController {
@@ -24,21 +24,21 @@ public class BrandController {
     @Autowired
     private BrandServer brandServer;
 
-    @RequestMapping(value = "/",method = RequestMethod.POST)
+    @RequestMapping(value = "/brand/",method = RequestMethod.POST)
     @ApiOperation(value = "Cadastra o numero do brand")
     public ResponseEntity<?> registerBrand(@RequestBody BrandTemplate brandTemplate) {
         brandTemplate = this.brandServer.saveBrand(brandTemplate);
         return new ResponseEntity<BrandTemplate>(brandTemplate, HttpStatus.OK);
     }
 
-    @GetMapping("/brands")
+    @GetMapping("/brand/brands")
     @ApiOperation(value = "Busca Todos os Brand´s")
     public List<Brand> findAll() {
         return brandServer.findAll();
     }
 
     //alteracao de dados - id_brand, bin, country, status
-    @RequestMapping(value = "/alter/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/brand/alter/{id}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Altera uma brand específica")
     public ResponseEntity<?> alterBrand(@PathVariable("id") Long id,
                                               @RequestBody(required = true) BrandTemplate brandTemplate ) {

@@ -2,19 +2,16 @@ package br.com.linx.cardValidator.services;
 
 import br.com.linx.cardValidator.mapper.BinModelToBinTemplate;
 import br.com.linx.cardValidator.mapper.BinTemplateToBinModel;
-import br.com.linx.cardValidator.mapper.BinTypeTemplateToBinTypeModel;
 import br.com.linx.cardValidator.model.Bin;
 import br.com.linx.cardValidator.repository.BinRepository;
 import br.com.linx.cardValidator.templates.BinTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.persistence.EntityNotFoundException;
@@ -43,6 +40,7 @@ public class BinServer {
         return BinModelToBinTemplate.MAPPER.binTemplateMapper(binModel);
 
     }
+
     public List<BinTemplate> saveBin (List<BinTemplate> binTemplate){
         log.info("[CARDVALIDATOR] -saving bin");
         List<Bin> binModels = binTemplate
@@ -63,9 +61,7 @@ public class BinServer {
         BinTemplateToBinModel.MAPPER.updateBinFromBinTemplate(binTemplate, binModel);
 
         return BinModelToBinTemplate.MAPPER.binTemplateMapper(binRepository.save(binModel));
-
     }
-
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(Long id) {
@@ -91,9 +87,9 @@ public class BinServer {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public List<Bin> findAll() {
+    public List<Bin> findAll(Pageable pageable) {
         List<Bin> bins = new ArrayList<>();
-        binRepository.findAll().forEach(bins::add);
+        binRepository.findAll(pageable).forEach(bins::add);
         return bins;
     }
 

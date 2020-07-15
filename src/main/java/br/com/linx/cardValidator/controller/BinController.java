@@ -8,11 +8,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.PathParam;
 import java.util.List;
 
 @RestController
@@ -51,11 +51,12 @@ public class BinController<binTemplate> {
         return binServer.findByIdBin(idBin);
     }
 
-
     @RequestMapping(value = "/bin/bins", method = RequestMethod.GET)
     @ApiOperation(value = "Busca todos os numeros de bin")
-    public List<Bin> findAll() {
-        return binServer.findAll();
+    public List<Bin> findAll(Pageable pageable) {
+        return binServer.findAll(pageable); // default = 20
+        // http://localhost:8080/cardvalidator/bin/bins?page=0&size=5
+        // http://localhost:8080/cardvalidator/bin/bins?page=1
     }
 
 

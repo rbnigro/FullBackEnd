@@ -1,5 +1,14 @@
 
 SET NAMES utf8 ;
+USE 'cardvalidator';
+-- Dumping database structure for AUTHENTICATOR_DEWA
+-- CREATE DATABASE IF NOT EXISTS `cardvalidator` /*!40100 DEFAULT CHARACTER SET latin1 */;
+-- USE `cardvalidator`;
+
+-- Dumping structure for table AUTHENTICATOR_DEWA.access_monitor
+
+
+
 
 /* ------
  Schema
@@ -11,7 +20,7 @@ SET NAMES utf8 ;
 Tabelas
 -------
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  */
-create table cardvalidator.teste(id_teste int(5),descr varchar(50));
+CREATE TABLE cardvalidator.teste(id_teste int(5),descr varchar(50));
 
 /*
 CREATE TABLE brand (

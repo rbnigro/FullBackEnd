@@ -1,53 +1,46 @@
-------
-Schema
-------
-CREATE SCHEMA `cardvalidator` DEFAULT CHARACTER SET latin1 COLLATE latin1_bin
-
-------
-Tabelas
--------
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 CREATE TABLE brand (
   id_brand int(11) NOT NULL,
   brand varchar(10) DEFAULT NULL,
   description varchar(50) DEFAULT NULL,
-  created_at datetime NOT NULL);
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+  created_at datetime DEFAULT NULL,
+  PRIMARY KEY (id_brand),
+  UNIQUE KEY brand_UNIQUE (brand)
+);
+
 CREATE TABLE bin (
   id_bin int(11) NOT NULL,
-  id_brand int(11) NOT NULL,
+  id_brand int(11) DEFAULT NULL,
   bin int(11) DEFAULT NULL,
   country varchar(10) DEFAULT NULL,
-  status varchar(10) NOT NULL,
-  created_at datetime NOT NULL,
-  updated_at datetime DEFAULT NULL);
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-CREATE TABLE bin_type (
-  id_type int(11) NOT NULL,
-  description varchar(50) DEFAULT NULL,
-  created_at datetime NOT NULL);
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+  status varchar(10) DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  PRIMARY KEY (id_bin),
+  UNIQUE KEY bin_UNIQUE (bin)
+);
+
+ALTER TABLE bin
+ADD INDEX fk_brand_idx (id_brand ASC);
+
+ALTER TABLE bin
+ADD CONSTRAINT fk_brand
+  FOREIGN KEY (id_brand)
+  REFERENCES brand (id_brand)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+  
 CREATE TABLE bin_bin_type (
-  binid_bin int(11) NOT NULL,
-  bin_typeid_type int(11) NOT NULL);
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-------
-Dados
------
-INSERT INTO brand (id_brand, brand, description, created_at) VALUES(1, '506722', 'elo', '2020-07-02 00:00:00');
-INSERT INTO brand (id_brand, brand, description, created_at) VALUES(2, '485464', 'visa', '2020-07-02 00:00:00');
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-INSERT INTO bin (id_bin, id_brand, bin, country, status, created_at, updated_at)
-VALUES (1, 1, 506744, 'brasil', 'ativo', '2020-07-02', null);
-INSERT INTO bin (id_bin, id_brand, bin, country, status, created_at, updated_at)
-VALUES (2, 1, 548799, 'brasil', 'ativo', '2020-07-02 00:00:00', '2020-07-03 00:00:00');
-INSERT INTO bin (id_bin, id_brand, bin, country, status, created_at, updated_at)
-VALUES (3, 2, 548966, 'brasil', 'inativo', '2020-07-02 00:00:00', '');
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-INSERT INTO bin_type (id_type, description, created_at) VALUES (1,'debito','2020-07-02 00:00:00');
-INSERT INTO bin_type (id_type, description, created_at) VALUES (2,'credito','2020-07-02 00:00:00');
-INSERT INTO bin_type (id_type, description, created_at) VALUES (3,'refeicao','2020-07-02 00:00:00');
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-INSERT INTO bin_bin_type (binid_bin, bin_typeid_type) VALUES (1, 1);
-INSERT INTO bin_bin_type (binid_bin, bin_typeid_type) VALUES (2, 2);
--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+  id_binbintype bigint(20) NOT NULL AUTO_INCREMENT,	
+  binid_bin bigint(20) NOT NULL,
+  bin_typeid_type bigint(20) NOT NULL,
+  PRIMARY KEY (id_binbintype));
+  
+ALTER TABLE bin_bin_type
+ADD INDEX fk_bintype_idx (bin_typeid_type ASC);
+
+ALTER TABLE bin_bin_type 
+ADD CONSTRAINT fk_bintype
+  FOREIGN KEY (bin_typeid_type)
+  REFERENCES bin_type2 (id_type)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

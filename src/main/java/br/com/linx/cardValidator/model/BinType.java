@@ -6,12 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,4 +28,7 @@ public class BinType {
     @Column(name="created_at")
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime createdAt;
+
+    @ManyToMany(mappedBy = "binTypes")
+    private Set<Bin> Bin;
 }

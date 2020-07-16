@@ -27,31 +27,48 @@ public class BinController<binTemplate> {
     @Autowired
     private BinRepository binRepository;
 
-    //inclusao unitaria
-    @RequestMapping(value = "/bin/", method = RequestMethod.POST)
+    // Inclusao unitaria
+    @RequestMapping(value = "/bin/", method = RequestMethod.POST,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Cadastra o numero do bin")
     public ResponseEntity<?> registerBin(@RequestBody BinTemplate binTemplate) {
         binTemplate = this.binServer.saveBin(binTemplate);
         return new ResponseEntity<BinTemplate>(binTemplate, HttpStatus.OK);
     }
 
-    //inclusão massiva
-    @RequestMapping(value="/bin/all", method = RequestMethod.POST)
+    // Inclusão massiva
+    @RequestMapping(value="/bin/all", method = RequestMethod.POST,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Cadastra o numero do bin (em lote)")
     public ResponseEntity<?> registerAllBin(@RequestBody(required = true) List<BinTemplate> binTemplate) {
         binTemplate = this.binServer.saveBin(binTemplate);
         return new ResponseEntity<List<BinTemplate>>(binTemplate, HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/bin/bins/{idBin}", method = RequestMethod.GET)
-    @ApiOperation(value = "Busca um bin especifico")
+    // Busca um idBin especifico
+    @RequestMapping(value = "/bin/idbin/{idBin}", method = RequestMethod.GET,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
+    @ApiOperation(value = "Busca um idBin especifico")
     public Bin findByIdBin(@PathVariable("idBin") Long idBin) {
-
         return binServer.findByIdBin(idBin);
     }
 
-    @RequestMapping(value = "/bin/bins", method = RequestMethod.GET)
+    // Busca um Bin específico
+    @RequestMapping(value = "/bin/bin/{bin}", method = RequestMethod.GET,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
+    @ApiOperation(value = "Busca um Bin especifico")
+    public ResponseEntity<?> findByBin(@PathVariable("bin") Long bin) {
+        return new ResponseEntity<>(binServer.findByBin(bin), HttpStatus.OK) ;
+    }
+
+    // lista todos os bins paginado
+    @RequestMapping(value = "/bin/bins", method = RequestMethod.GET,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Busca todos os numeros de bin")
     public List<Bin> findAll(Pageable pageable) {
         return binServer.findAll(pageable); // default = 20
@@ -61,7 +78,9 @@ public class BinController<binTemplate> {
 
 
     //alteracao de dados - id_brand, bin, country, status
-    @RequestMapping(value = "/bin/alter/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/bin/alter/{id}", method = RequestMethod.PATCH,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Altera um Bin específico")
     public ResponseEntity<?> markEntryAsReadAlter(@PathVariable("id") Long id,
                                               @RequestBody(required = true) BinTemplate binTemplate ) {
@@ -73,7 +92,9 @@ public class BinController<binTemplate> {
     }
 
     //exclusao logica -
-    @RequestMapping(value = "/bin/{id}/{status}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/bin/{id}/{status}", method = RequestMethod.PATCH,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Inativa um Bin específico")
     public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long id_bin, @PathVariable("status") String status ) {
         if( binServer.markEntryAsRead(id_bin,status)){

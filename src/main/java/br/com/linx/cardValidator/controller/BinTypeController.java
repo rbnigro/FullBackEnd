@@ -24,14 +24,18 @@ public class BinTypeController{
     @Autowired
     private BinTypeServer binTypeServer;
 
-    @RequestMapping(value = "/binType/",method = RequestMethod.POST)
+    @RequestMapping(value = "/binType/", method = RequestMethod.POST,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Cadastra o binType")
     public ResponseEntity<?> registerBinType(@RequestBody BinTypeTemplate binTypeTemplate) {
         binTypeTemplate = this.binTypeServer.saveBinType(binTypeTemplate);
         return new ResponseEntity<BinTypeTemplate>(binTypeTemplate, HttpStatus.OK);
     }
 
-    @GetMapping("/binType/bin/binTypes")
+    @RequestMapping(value = "/binType/bin/binTypes", method = RequestMethod.GET,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation("Busca Todos os Bin Type´s")
     public List<BinType> findAll() {
         return binTypeServer.findAll();

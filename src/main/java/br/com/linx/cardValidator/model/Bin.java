@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +36,12 @@ public class Bin {
 
     @Column(length = 10)
     private String status;
+
+   @ManyToMany(cascade = {CascadeType.ALL})
+   @JoinTable(name = "bin_bin_type",
+   joinColumns = { @JoinColumn(name="binid_bin")},
+   inverseJoinColumns = {@JoinColumn(name="bin_typeid_type")})
+    private Set<BinType> binTypes;
 
     @Column(name="created_at")
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")

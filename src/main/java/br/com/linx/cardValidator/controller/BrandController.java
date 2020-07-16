@@ -24,21 +24,27 @@ public class BrandController {
     @Autowired
     private BrandServer brandServer;
 
-    @RequestMapping(value = "/brand/",method = RequestMethod.POST)
+    @RequestMapping(value = "/brand/", method = RequestMethod.POST,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Cadastra o numero do brand")
     public ResponseEntity<?> registerBrand(@RequestBody BrandTemplate brandTemplate) {
         brandTemplate = this.brandServer.saveBrand(brandTemplate);
         return new ResponseEntity<BrandTemplate>(brandTemplate, HttpStatus.OK);
     }
 
-    @GetMapping("/brand/brands")
+    @RequestMapping(value = "/brand/brands", method = RequestMethod.GET,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Busca Todos os Brand´s")
     public List<Brand> findAll() {
         return brandServer.findAll();
     }
 
     //alteracao de dados - id_brand, bin, country, status
-    @RequestMapping(value = "/brand/alter/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/brand/alter/{id}", method = RequestMethod.PATCH,
+            produces = { "application/json", "application/xml" },
+            consumes = {"application/json", "application/xml" })
     @ApiOperation(value = "Altera uma brand específica")
     public ResponseEntity<?> alterBrand(@PathVariable("id") Long id,
                                               @RequestBody(required = true) BrandTemplate brandTemplate ) {

@@ -22,10 +22,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
   flyway:
-    url: jdbc:mysql://${API_DATABASE_URL}/${API_DATABASE_NAME}?createDatabaseIfNotExist=false&useSSL=${API_DATABASE_USE_SSL}&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
-    username: ${API_DATABASE_USERNAME}
-    password: ${API_DATABASE_PASSWORD}
-    locations: classpath:db/migration/mysql
     ignoreIgnoredMigrations: false
     enabled: true
     baseline-on-migrate: true

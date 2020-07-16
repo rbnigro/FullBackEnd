@@ -1,6 +1,6 @@
 
 SET NAMES utf8 ;
-USE 'cardvalidator';
+
 -- Dumping database structure for AUTHENTICATOR_DEWA
 -- CREATE DATABASE IF NOT EXISTS `cardvalidator` /*!40100 DEFAULT CHARACTER SET latin1 */;
 -- USE `cardvalidator`;

@@ -33,11 +33,12 @@ public class Bin {
     @Column(length = 10)
     private String status;
 
-   @ManyToMany(cascade = {CascadeType.ALL})
-   @JoinTable(name = "bin_bin_type",
-   joinColumns = { @JoinColumn(name="binid_bin")},
-   inverseJoinColumns = {@JoinColumn(name="bin_typeid_type")})
-    private Set<BinType> binTypes;
+    @ManyToMany // (cascade = {CascadeType.ALL})
+    @JoinTable(
+        name = "bin_bin_type",
+        joinColumns = {@JoinColumn(name="binid_bin")},
+        inverseJoinColumns = @JoinColumn(name="bin_typeid_type"))
+    private Set<BinType> linkedBinTypes;
 
     @Column(name="created_at")
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")

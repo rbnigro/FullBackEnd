@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.awt.print.Pageable;
-
 public interface BinRepository extends JpaRepository<Bin, Long> {
 
     Bin findByIdBin(Long id_bin);

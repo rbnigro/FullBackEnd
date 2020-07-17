@@ -29,6 +29,6 @@ public class BinType {
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime createdAt;
 
-    @ManyToMany(mappedBy = "binTypes")
-    private Set<Bin> Bin;
+    @ManyToMany(mappedBy = "linkedBinTypes")
+    private Set<Bin> binBinTypes;
 }

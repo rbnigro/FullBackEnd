@@ -14,9 +14,5 @@ public interface BinTemplateToBinModel {
     BinTemplateToBinModel MAPPER = Mappers.getMapper(BinTemplateToBinModel.class);
     Bin binMapper (BinTemplate binTemplate);
 
-
     void updateBinFromBinTemplate(BinTemplate template, @MappingTarget Bin binModel);
-
-
-
 }

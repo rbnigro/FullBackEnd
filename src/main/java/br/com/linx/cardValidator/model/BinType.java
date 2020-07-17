@@ -15,6 +15,7 @@ import java.util.Set;
 @Data
 @Entity
 @ToString
+@Table(name = "bin_type")
 public class BinType {
 
     @Id
@@ -29,6 +30,6 @@ public class BinType {
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime createdAt;
 
-    @ManyToMany(mappedBy = "linkedBinTypes")
-    private Set<Bin> binBinTypes;
+    //@ManyToMany(mappedBy = "linkedBinTypes")
+    //private Set<Bin> binBinTypes;
 }

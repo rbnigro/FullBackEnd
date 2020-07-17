@@ -5,11 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
@@ -18,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @ToString
+@Table(name = "brand")
 public class Brand {
 
     @Id

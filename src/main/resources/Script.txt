@@ -41,6 +41,6 @@ ADD INDEX fk_bintype_idx (bin_typeid_type ASC);
 ALTER TABLE bin_bin_type 
 ADD CONSTRAINT fk_bintype
   FOREIGN KEY (bin_typeid_type)
-  REFERENCES bin_type2 (id_type)
+  REFERENCES bin_type (id_type)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;

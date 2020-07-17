@@ -1,16 +1,13 @@
 package br.com.linx.cardValidator.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -18,14 +15,17 @@ import javax.persistence.Column;
 @Data
 @Entity
 @ToString
-public class BinBinType {
+@Table(name = "bin_bin_type")
+@IdClass(BinBinType.class)
+public class BinBinType implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ManyToOne
+    @JoinColumn(name = "binid_bin")
+    private Bin bin;
 
-    @Column(name="binid_bin")
-    private Long binIdBin;
-
-    @Column(name="bin_typeid_type")
-    private Long binTypeIdType;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "bin_typeid_type")
+    private BinType binType;
 }

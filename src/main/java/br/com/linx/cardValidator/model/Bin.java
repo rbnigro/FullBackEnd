@@ -5,19 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
+
+// https://bezkoder.com/spring-boot-pagination-filter-jpa-pageable/
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @ToString
+@FilterDef(name="filterByStatus", parameters={@ParamDef(name="status", type="string")})
+@Filters({@Filter(name="filterByStatus", condition=":status = status")})
 @Table(name = "bin")
 public class Bin {
 
@@ -36,13 +41,7 @@ public class Bin {
     private String country;
 
     @Column(length = 10)
-    @Where(clause="status='ativo2'")
     private String status;
-
-  //  @OneToMany(mappedBy = "bin", targetEntity = BinBinType.class, fetch = FetchType.LAZY)
-  //  @Cascade(org.hibernate.annotations.CascadeType.ALL)
-  //  private List<BinBinType> binBinType;
-
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
@@ -50,7 +49,6 @@ public class Bin {
         joinColumns = {@JoinColumn(name="binid_bin", referencedColumnName="id_bin")},
         inverseJoinColumns = @JoinColumn(name="bin_typeid_type", referencedColumnName="id_type"))
     private Set<BinType> linkedBinTypes;
-
 
     @Column(name="created_at")
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")

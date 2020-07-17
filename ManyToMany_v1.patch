@@ -1,0 +1,233 @@
+Index: src/main/java/br/com/linx/cardValidator/repository/BinBinTypeRepository.java
+===================================================================
+--- src/main/java/br/com/linx/cardValidator/repository/BinBinTypeRepository.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/java/br/com/linx/cardValidator/repository/BinBinTypeRepository.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
+@@ -1,13 +0,0 @@
+-package br.com.linx.cardValidator.repository;
+-
+-import br.com.linx.cardValidator.model.BinBinType;
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-import java.util.List;
+-
+-public interface BinBinTypeRepository extends JpaRepository<BinBinType, Integer>  {
+-
+-    //List<BinBinType> findByIdBin(Long id_bin);
+-
+-    //List<BinBinType> findByIdType(Long id_type);
+-}
+Index: src/main/java/br/com/linx/cardValidator/mapper/BinTemplateToBinModel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/br/com/linx/cardValidator/mapper/BinTemplateToBinModel.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/java/br/com/linx/cardValidator/mapper/BinTemplateToBinModel.java	(date 1595003034206)
+@@ -14,9 +14,5 @@
+     BinTemplateToBinModel MAPPER = Mappers.getMapper(BinTemplateToBinModel.class);
+     Bin binMapper (BinTemplate binTemplate);
+ 
+-
+     void updateBinFromBinTemplate(BinTemplate template, @MappingTarget Bin binModel);
+-
+-
+-
+ }
+Index: src/main/java/br/com/linx/cardValidator/model/BinType.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/br/com/linx/cardValidator/model/BinType.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/java/br/com/linx/cardValidator/model/BinType.java	(date 1595002071895)
+@@ -15,6 +15,7 @@
+ @Data
+ @Entity
+ @ToString
++@Table(name = "bin_type")
+ public class BinType {
+ 
+     @Id
+@@ -29,6 +30,6 @@
+     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
+     private LocalDateTime createdAt;
+ 
+-    @ManyToMany(mappedBy = "linkedBinTypes")
+-    private Set<Bin> binBinTypes;
++    //@ManyToMany(mappedBy = "linkedBinTypes")
++    //private Set<Bin> binBinTypes;
+ }
+Index: src/main/resources/Script.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/Script.txt	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/resources/Script.txt	(date 1594991614497)
+@@ -41,6 +41,6 @@
+ ALTER TABLE bin_bin_type 
+ ADD CONSTRAINT fk_bintype
+   FOREIGN KEY (bin_typeid_type)
+-  REFERENCES bin_type2 (id_type)
++  REFERENCES bin_type (id_type)
+   ON DELETE NO ACTION
+   ON UPDATE NO ACTION;
+\ No newline at end of file
+Index: src/main/java/br/com/linx/cardValidator/repository/BinTypeRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/br/com/linx/cardValidator/repository/BinTypeRepository.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/java/br/com/linx/cardValidator/repository/BinTypeRepository.java	(date 1595004238932)
+@@ -1,16 +1,9 @@
+ package br.com.linx.cardValidator.repository;
+ 
+-import br.com.linx.cardValidator.model.Bin;
+ import br.com.linx.cardValidator.model.BinType;
+-import br.com.linx.cardValidator.model.Brand;
+ import org.springframework.data.jpa.repository.JpaRepository;
+ 
+-import java.util.List;
+ 
+ public interface BinTypeRepository extends JpaRepository<BinType, Long> {
+ 
+-   List<BinType> findByIdType(Long id_type);
+-
+-
+-
+ }
+Index: src/main/java/br/com/linx/cardValidator/model/Bin.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/br/com/linx/cardValidator/model/Bin.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/java/br/com/linx/cardValidator/model/Bin.java	(date 1595003921561)
+@@ -5,8 +5,12 @@
+ import lombok.Data;
+ import lombok.NoArgsConstructor;
+ import lombok.ToString;
++import org.hibernate.annotations.Cascade;
++import org.hibernate.annotations.Where;
++
+ import javax.persistence.*;
+ import java.time.LocalDateTime;
++import java.util.List;
+ import java.util.Set;
+ 
+ @AllArgsConstructor
+@@ -14,6 +18,7 @@
+ @Data
+ @Entity
+ @ToString
++@Table(name = "bin")
+ public class Bin {
+ 
+     @Id
+@@ -31,15 +36,22 @@
+     private String country;
+ 
+     @Column(length = 10)
++    @Where(clause="status='ativo2'")
+     private String status;
+ 
+-    @ManyToMany // (cascade = {CascadeType.ALL})
++  //  @OneToMany(mappedBy = "bin", targetEntity = BinBinType.class, fetch = FetchType.LAZY)
++  //  @Cascade(org.hibernate.annotations.CascadeType.ALL)
++  //  private List<BinBinType> binBinType;
++
++
++    @ManyToMany(cascade = {CascadeType.ALL})
+     @JoinTable(
+         name = "bin_bin_type",
+-        joinColumns = {@JoinColumn(name="binid_bin")},
+-        inverseJoinColumns = @JoinColumn(name="bin_typeid_type"))
++        joinColumns = {@JoinColumn(name="binid_bin", referencedColumnName="id_bin")},
++        inverseJoinColumns = @JoinColumn(name="bin_typeid_type", referencedColumnName="id_type"))
+     private Set<BinType> linkedBinTypes;
+ 
++
+     @Column(name="created_at")
+     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
+     private LocalDateTime createdAt;
+Index: src/main/java/br/com/linx/cardValidator/model/BinBinType.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/br/com/linx/cardValidator/model/BinBinType.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/java/br/com/linx/cardValidator/model/BinBinType.java	(date 1595003501741)
+@@ -1,16 +1,13 @@
+ package br.com.linx.cardValidator.model;
+ 
+-
+ import lombok.AllArgsConstructor;
+ import lombok.Data;
+ import lombok.NoArgsConstructor;
+ import lombok.ToString;
+ 
+-import javax.persistence.Entity;
+-import javax.persistence.Id;
+-import javax.persistence.GeneratedValue;
+-import javax.persistence.GenerationType;
+-import javax.persistence.Column;
++import javax.persistence.*;
++import java.io.Serializable;
++import java.util.List;
+ 
+ 
+ @AllArgsConstructor
+@@ -18,14 +15,17 @@
+ @Data
+ @Entity
+ @ToString
+-public class BinBinType {
++@Table(name = "bin_bin_type")
++@IdClass(BinBinType.class)
++public class BinBinType implements Serializable {
+ 
+     @Id
+-    @GeneratedValue(strategy = GenerationType.AUTO)
+-
+-    @Column(name="binid_bin")
+-    private Long binIdBin;
++    @ManyToOne
++    @JoinColumn(name = "binid_bin")
++    private Bin bin;
+ 
+-    @Column(name="bin_typeid_type")
+-    private Long binTypeIdType;
++    @Id
++    @ManyToOne
++    @JoinColumn(name = "bin_typeid_type")
++    private BinType binType;
+ }
+Index: src/main/java/br/com/linx/cardValidator/model/Brand.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/br/com/linx/cardValidator/model/Brand.java	(revision 164e0038212e6e2d3049a57d72196e72b836a35e)
++++ src/main/java/br/com/linx/cardValidator/model/Brand.java	(date 1594999450037)
+@@ -5,11 +5,7 @@
+ import lombok.NoArgsConstructor;
+ import lombok.ToString;
+ 
+-import javax.persistence.Entity;
+-import javax.persistence.Id;
+-import javax.persistence.GeneratedValue;
+-import javax.persistence.GenerationType;
+-import javax.persistence.Column;
++import javax.persistence.*;
+ import java.time.LocalDateTime;
+ 
+ 
+@@ -18,6 +14,7 @@
+ @Data
+ @Entity
+ @ToString
++@Table(name = "brand")
+ public class Brand {
+ 
+     @Id

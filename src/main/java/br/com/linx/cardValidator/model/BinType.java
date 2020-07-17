@@ -8,7 +8,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,6 +29,4 @@ public class BinType {
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime createdAt;
 
-    //@ManyToMany(mappedBy = "linkedBinTypes")
-    //private Set<Bin> binBinTypes;
 }

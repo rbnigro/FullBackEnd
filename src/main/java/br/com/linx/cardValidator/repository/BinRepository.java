@@ -18,12 +18,4 @@ public interface BinRepository extends JpaRepository<Bin, Long> {
     @Query("update Bin set status =:inativo where bin.idBin =:idBin")
     int markEntryAsRead(@Param("idBin") Long id_bin, @Param("inativo") String isRead);
 
-    /*@Modifying
-    @Query("update Bin set idBin=:idBin, id_Brand=:idBrand, bin=:bin, country=:country, status =:inativo where bin.idBin =:idBin")
-    int markEntryAsReadF(@Param("idBin") Long id_bin,
-                        @Param("idBrand") Long id_brand,
-                        @Param("bin") Long bin,
-                        @Param("country") String country,
-                        @Param("inativo") String isRead);*/
-
 }

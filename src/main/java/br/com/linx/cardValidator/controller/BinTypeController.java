@@ -41,19 +41,6 @@ public class BinTypeController{
         return binTypeServer.findAll();
     }
 
-
-    //alteracao de dados - description
-    /*@RequestMapping(value = "/alter/{id}", method = RequestMethod.PATCH)
-    @ApiOperation(value = "Altera um tipo específico")
-    public ResponseEntity<?> binTypeAlter(@PathVariable("id") Long id,
-                                                  @RequestBody(required = true) BinTypeTemplate binTypeTemplate ) {
-      binTypeTemplate = binTypeServer.mergeBinType(binTypeTemplate, id );
-        if( binTypeTemplate != null){
-            return new ResponseEntity<Object>(binTypeTemplate, HttpStatus.OK);
-        }
-        return new ResponseEntity<Object>("{message: 'Update Don't OK' }", HttpStatus.NOT_FOUND);
-    }*/
-
     //alteracao de dados - id_brand, bin, country, status
     @RequestMapping(value = "/binType/alter/{id}", method = RequestMethod.PATCH)
     @ApiOperation(value = "Altera um tipo específica")

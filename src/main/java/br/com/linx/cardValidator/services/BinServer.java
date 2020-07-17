@@ -83,7 +83,6 @@ public class BinServer {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Bin findByBin(Long numeroBin) {
         Bin bin = binRepository.findByBin(numeroBin);
-        System.out.println("> > > > > > > > > > " + numeroBin);
         return bin;
     }
 

@@ -10,7 +10,6 @@ import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
 @Mapper(nullValueCheckStrategy = ALWAYS)
 public interface BinTemplateToBinModel {
 
-
     BinTemplateToBinModel MAPPER = Mappers.getMapper(BinTemplateToBinModel.class);
     Bin binMapper (BinTemplate binTemplate);
 

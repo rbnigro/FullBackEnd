@@ -5,34 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.Filters;
-import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
-
-// https://bezkoder.com/spring-boot-pagination-filter-jpa-pageable/
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 @ToString
-@FilterDef(name="filterByStatus", parameters={@ParamDef(name="status", type="string")})
-@Filters({@Filter(name="filterByStatus", condition=":status = status")})
 @Table(name = "bin")
-public class Bin {
+public class Bin implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_bin")
     private Long idBin;
 
-    @Column(name="id_brand")
-    private Long idBrand;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_brand")
+    private Brand brand;
 
     @Column(unique = true)
     private Long bin;
@@ -43,7 +37,7 @@ public class Bin {
     @Column(length = 10)
     private String status;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.DETACH})
     @JoinTable(
         name = "bin_bin_type",
         joinColumns = {@JoinColumn(name="binid_bin", referencedColumnName="id_bin")},

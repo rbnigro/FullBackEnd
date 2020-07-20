@@ -1,5 +1,6 @@
 package br.com.linx.cardValidator.services;
 
+import br.com.linx.cardValidator.dto.BinDTO;
 import br.com.linx.cardValidator.mapper.BinModelToBinTemplate;
 import br.com.linx.cardValidator.mapper.BinTemplateToBinModel;
 import br.com.linx.cardValidator.model.Bin;
@@ -75,15 +76,9 @@ public class BinServer {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Bin findByIdBrand(Long id_brand) {
-        Bin bin = binRepository.findByIdBrand(id_brand);
-        return bin;
-    }
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Bin findByBin(Long numeroBin) {
-        Bin bin = binRepository.findByBin(numeroBin);
-        return bin;
+    public BinDTO findByBin(Long numeroBin) {
+        BinDTO binDTO =  binRepository.findByBin(numeroBin);
+        return binDTO;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -99,13 +94,5 @@ public class BinServer {
          log.info("UPDATE REALIZADO " + return_);
          return return_==1;
     }
-
-   /*
-    @Transactional
-    public boolean markEntryAsReadF (Long idBin, Long idBrand, Long bin, String country,String status){
-        int return_ = binRepository.markEntryAsReadF(idBin,idBrand,bin,country, status);
-        log.info("UPDATE REALIZADO " + return_);
-        return return_==1;
-    }*/
 
 }

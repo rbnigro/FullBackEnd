@@ -8,7 +8,7 @@ spring:
     discovery:
       enabled: false
   datasource:
-    url: jdbc:mysql://${API_DATABASE_URL}/${API_DATABASE_NAME}?createDatabaseIfNotExist=false&useSSL=${API_DATABASE_USE_SSL}&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://${API_DATABASE_URL}/${API_DATABASE_NAME}?createDatabaseIfNotExist=true&useSSL=${API_DATABASE_USE_SSL}&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
     username: ${API_DATABASE_USERNAME}
     password: ${API_DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver

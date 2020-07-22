@@ -2,14 +2,16 @@ package br.com.linx.cardValidator.dto;
 
 public class BinDTO {
 
+    private Long idBin;
     private Long bin;
     private String country;
     private String status;
     private String brand;
     private String description;
 
-    public BinDTO(Long bin, String country, String status, String brand, String description) {
+    public BinDTO(Long idBin, Long bin, String country, String status, String brand, String description) {
         super();
+        this.idBin = idBin;
         this.bin = bin;
         this.country = country;
         this.status = status;
@@ -55,5 +57,13 @@ public class BinDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getIdBin() {
+        return idBin;
+    }
+
+    public void setIdBin(Long idBin) {
+        this.idBin = idBin;
     }
 }

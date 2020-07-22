@@ -1,0 +1,214 @@
+### Cenários de testes###
+* bin
+	1.1- inclusão individual
+	
+	json:
+	{
+	  "bin": 152279,
+	  "country": "UK",
+	  "createdAt": "2020-07-12T23:07:00",
+	  "idBrand": 1,
+	  "status": "ativo",
+	  "updatedAt": "2020-07-12T23:07:00"
+	}
+		
+	1.2- inclusão em grupo
+	
+	json
+	
+	[
+	  {
+		"bin": 152273,
+		"country": "UK",
+		"createdAt": "2020-07-12T23:09:11",
+		"idBrand": 2,
+		"status": "ativo",
+		"updatedAt": "2020-07-12T23:09:11"
+	  }
+	,
+	{
+		"bin": 152274,
+		"country": "UK",
+		"createdAt": "2020-07-12T23:09:11",
+		"idBrand": 2,
+		"status": "ativo",
+		"updatedAt": "2020-07-12T23:09:11"
+	  }
+	]
+	
+	
+	1.3- consulta individual
+	json(n/a)
+
+	1.4- consulta de todos
+	json(n/a)
+
+	1.5- Edição dos dados()
+	
+	json
+	{
+  	  "idBrand": 1
+	}
+	
+
+	1.6- exclusão logica
+	ok
+	
+	
+* brand	
+
+	1.1- inclusão individual
+	
+	json
+	{
+	  "brand": "506725",
+	  "createdAt": "2020-07-12T23:24:36",
+	  "description": "american"
+	  
+	}
+	
+	1.3- consulta individual
+	
+
+	1.4- consulta de todos
+	
+	ok
+	
+	1.5- Edição dos dados()
+	
+	json
+	{
+	  "brand": "506725",
+	  "createdAt": "2020-07-12T23:26:25"
+	  
+	}
+	
+	ok
+	
+	1.6- exclusão logica ##(não planejado)
+	
+	
+	
+*bin_type	
+	
+	1.1- inclusão individual
+	
+	{
+	  "createdAt": "2020-07-12T23:31:32",
+	  "description": "refeicao"
+	}
+
+	ok
+	
+		
+	1.2- inclusão em grupo ##(não planejado)
+	
+		
+	1.3- consulta individual ##(não planejado)
+	
+	
+	1.4- consulta de todos
+	
+	json(n/a)
+	
+	ok
+	
+	1.5- Edição dos dados() 
+	
+	json
+	{
+  
+	  "description": "combustivel"
+	  
+	}
+	
+	ok
+	
+	
+	1.6- exclusão logica  ##(não planejado)
+	
+	
+	
+	
+	
+	observações:
+	
+	url: http://localhost:8080/swagger-ui.html
+	
+	
+	
+	
+	
+	workshop
+	
+	[16:16] Felipe Garcia Bueno da Silva
+    
+
+https://grupolinx.sharepoint.com/:x:/s/LevantamentodeRiscosLinx/Ed_Xa6KH0NxAquHvfW4Y7PQByFwUCILwfGvN2Kam1zHY6w?e=yppi96
+
+
+[16:40] Anderson Rodrigues Gomes
+    
+https://github.com/chris-rock/node-xmpp-server
+
+compile "org.flywaydb:flyway-core:5.2.4"
+id "org.flywaydb.flyway" version "5.2.4"
+
+implementation('org.flywaydb:flyway-core:5.2.4')
+
+
+
+
+*
+CREATE TABLE cardvalidator.brand (
+  id_brand int(11) NOT NULL AUTO_INCREMENT,
+  brand varchar(10) DEFAULT NULL,
+  description varchar(50) DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  PRIMARY KEY (id_brand),
+  UNIQUE KEY brand_UNIQUE (brand)
+);
+
+CREATE TABLE cardvalidator.bin (
+  id_bin int(11) NOT NULL AUTO_INCREMENT,
+  id_brand int(11) DEFAULT NULL,
+  bin int(11) DEFAULT NULL,
+  country varchar(10) DEFAULT NULL,
+  status varchar(10) DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  PRIMARY KEY (id_bin),
+  UNIQUE KEY bin_UNIQUE (bin)
+);
+
+CREATE TABLE cardvalidator.bin_type (
+  id_type int(11) NOT NULL AUTO_INCREMENT,
+  description varchar(50) DEFAULT NULL,
+  created_at datetime DEFAULT NULL,
+  PRIMARY KEY (id_type),
+  UNIQUE KEY bin_UNIQUE (description)
+);
+
+ALTER TABLE cardvalidator.bin
+ADD INDEX fk_brand_idx (id_brand ASC);
+
+ALTER TABLE cardvalidator.bin
+ADD CONSTRAINT fk_brand
+  FOREIGN KEY (id_brand)
+  REFERENCES brand (id_brand)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+CREATE TABLE cardvalidator.bin_bin_type (
+  binid_bin int(11) NOT NULL ,
+  bin_typeid_type int(11) NOT NULL ,
+  PRIMARY KEY (binid_bin,bin_typeid_type),
+  constraint FK_bin_bin_type foreign key (binid_bin) references bin(id_bin),
+  constraint FK_bin_bin_type2 foreign key (bin_typeid_type) references bin_type(id_type)
+  );
+
+*/
+
+
+	

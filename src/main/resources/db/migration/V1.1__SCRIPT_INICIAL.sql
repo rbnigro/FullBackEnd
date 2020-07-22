@@ -1,9 +1,6 @@
-
 SET NAMES utf8 ;
 
-
 use cardvalidator;
-CREATE TABLE cardvalidator.teste(id_teste int(5),descr varchar(50));
 
 CREATE TABLE cardvalidator.brand (
   id_brand bigint(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,

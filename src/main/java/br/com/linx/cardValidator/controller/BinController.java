@@ -95,10 +95,11 @@ public class BinController<binTemplate> {
 
     //exclusao logica -
     @RequestMapping(value = "/bin/{id}/{status}", method = RequestMethod.PATCH,
-            produces = { "application/json" })
+            produces = { "application/json" },
+            consumes = {"application/json" })
     @ApiOperation(value = "Inativa um Bin específico")
-    public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long idBin, @PathVariable("status") String status ) {
-        if( binServer.markEntryAsRead(idBin,status)){
+    public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long id_bin, @PathVariable("status") String status ) {
+        if( binServer.markEntryAsRead(id_bin,status)){
             return new ResponseEntity<Object>("{message: 'Update OK' }", HttpStatus.OK);
         }
         return new ResponseEntity<Object>("{message: 'Update Don't OK' }", HttpStatus.INTERNAL_SERVER_ERROR);

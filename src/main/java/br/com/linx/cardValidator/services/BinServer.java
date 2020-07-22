@@ -110,6 +110,11 @@ public class BinServer {
         return bins;
     }
 
+
+
+
+
+
    @Transactional
     public boolean markEntryAsRead (Long idBin, String status){
          int return_ = binRepository.markEntryAsRead(idBin, status);

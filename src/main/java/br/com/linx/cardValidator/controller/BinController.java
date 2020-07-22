@@ -46,8 +46,8 @@ public class BinController<binTemplate> {
 
     // Inclusão massiva
     @RequestMapping(value="/bin/all", method = RequestMethod.POST,
-            produces = {"application/json", "application/xml"},
-            consumes = {"application/json", "application/xml"})
+            produces = {"application/json"},
+            consumes = {"application/json"})
     @ApiOperation(value = "Cadastra o numero do bin (em lote)")
     public ResponseEntity<?> registerAllBin(@RequestBody(required = true) List<BinTemplate> binTemplate) {
         binTemplate = this.binServer.saveBin(binTemplate);
@@ -56,40 +56,33 @@ public class BinController<binTemplate> {
 
     // Busca um idBin especifico
     @RequestMapping(value = "/bin/idbin/{idBin}", method = RequestMethod.GET,
-            produces = {"application/json", "application/xml"},
-            consumes = {"application/json", "application/xml"})
+            produces = {"application/json"})
     @ApiOperation(value = "Busca um idBin especifico")
-    public Bin findByIdBin(@PathVariable("idBin") Long idBin) {
-        return binServer.findByIdBin(idBin);
+    public ResponseEntity<?> findByIdBin(@PathVariable("idBin") Long idBin) {
+        return new ResponseEntity<>(binServer.findByIdBin(idBin), HttpStatus.OK);
     }
 
     // Busca um Bin específico
-    // @RequestMapping(value = "/bin/bin/{bin}/{status}",
-    @RequestMapping(value = "/bin/bin/{bin}",
-            method = RequestMethod.GET,
-            produces = {"application/json", "application/xml"},
-            consumes = {"application/json", "application/xml"})
-    @ApiOperation(value = "Busca um Bin especifico")
-    public ResponseEntity<?> findByBin(
-            @PathVariable("bin") Long bin) {
+    @RequestMapping(value = "/bin/bin/{bin}",method = RequestMethod.GET,
+            produces = {"application/json"})
+    @ApiOperation(value = "Busca um numero de Bin especifico")
+    public ResponseEntity<?> findByBin(@PathVariable("bin") Long bin) {
         return new ResponseEntity<>(binServer.findByBin(bin), HttpStatus.OK);
     }
 
     // lista todos os bins paginado
     @RequestMapping(value = "/bin/bins", method = RequestMethod.GET,
-            produces = {"application/json"},
-            consumes = {"application/json"})
+            produces = {"application/json"})
+
     @ApiOperation(value = "Busca todos os numeros de bin")
-    public List<Bin> findAll(Pageable pageable) {
-        return binServer.findAll(pageable); // default = 20
-        // http://localhost:8080/cardvalidator/bin/bins?page=0&size=5
-        // http://localhost:8080/cardvalidator/bin/bins?page=1
+    public ResponseEntity<?> findAll(Pageable pageable) {
+        return new ResponseEntity<List<Bin>>(binServer.findAll(pageable), HttpStatus.OK);
     }
 
     //alteracao de dados - id_brand, bin, country, status
     @RequestMapping(value = "/bin/alter/{id}", method = RequestMethod.PATCH,
-            produces = {"application/json", "application/xml"},
-            consumes = {"application/json", "application/xml"})
+            produces = {"application/json"},
+            consumes = {"application/json"})
     @ApiOperation(value = "Altera um Bin específico")
     public ResponseEntity<?> markEntryAsReadAlter(@PathVariable("id") Long id,
                                                   @RequestBody(required = true) BinTemplate binTemplate ) {
@@ -102,8 +95,8 @@ public class BinController<binTemplate> {
 
     //exclusao logica -
     @RequestMapping(value = "/bin/{id}/{status}", method = RequestMethod.PATCH,
-            produces = { "application/json", "application/xml" },
-            consumes = {"application/json", "application/xml" })
+            produces = { "application/json" },
+            consumes = {"application/json" })
     @ApiOperation(value = "Inativa um Bin específico")
     public ResponseEntity<?> markEntryAsRead( @PathVariable("id") Long id_bin, @PathVariable("status") String status ) {
         if( binServer.markEntryAsRead(id_bin,status)){

@@ -34,12 +34,12 @@ public class BinTypeController{
     }
 
     @RequestMapping(value = "/binType/bin/binTypes", method = RequestMethod.GET,
-            produces = { "application/json", "application/xml" },
-            consumes = {"application/json", "application/xml" })
+            produces = { "application/json" })
     @ApiOperation("Busca Todos os Bin Type´s")
-    public List<BinType> findAll() {
-        return binTypeServer.findAll();
+    public ResponseEntity<?> findAll() {
+        return new ResponseEntity<List<BinType>>(binTypeServer.findAll(),HttpStatus.OK);
     }
+
 
     //alteracao de dados - id_brand, bin, country, status
     @RequestMapping(value = "/binType/alter/{id}", method = RequestMethod.PATCH)

@@ -29,13 +29,20 @@ public class BinController<binTemplate> {
 
     // Inclusao unitaria
     @RequestMapping(value = "/bin/", method = RequestMethod.POST,
-            produces = {"application/json", "application/xml"},
-            consumes = {"application/json", "application/xml"})
+            produces = {"application/json"},
+            consumes = {"application/json"})
     @ApiOperation(value = "Cadastra o numero do bin")
     public ResponseEntity<?> registerBin(@RequestBody BinTemplate binTemplate) {
-        binTemplate = this.binServer.saveBin(binTemplate);
-        return new ResponseEntity<BinTemplate>(binTemplate, HttpStatus.OK);
-    }
+
+
+        try {
+            binTemplate = this.binServer.saveBin(binTemplate);
+            return new ResponseEntity<BinTemplate>(binTemplate, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("[BINCONTROLLER]-registerBin Error: " + e.getMessage());
+            return new ResponseEntity<Object>("Error: " + e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+     }
 
     // Inclusão massiva
     @RequestMapping(value="/bin/all", method = RequestMethod.POST,
@@ -70,8 +77,8 @@ public class BinController<binTemplate> {
 
     // lista todos os bins paginado
     @RequestMapping(value = "/bin/bins", method = RequestMethod.GET,
-            produces = {"application/json", "application/xml"},
-            consumes = {"application/json", "application/xml"})
+            produces = {"application/json"},
+            consumes = {"application/json"})
     @ApiOperation(value = "Busca todos os numeros de bin")
     public List<Bin> findAll(Pageable pageable) {
         return binServer.findAll(pageable); // default = 20
@@ -85,7 +92,7 @@ public class BinController<binTemplate> {
             consumes = {"application/json", "application/xml"})
     @ApiOperation(value = "Altera um Bin específico")
     public ResponseEntity<?> markEntryAsReadAlter(@PathVariable("id") Long id,
-                                              @RequestBody(required = true) BinTemplate binTemplate ) {
+                                                  @RequestBody(required = true) BinTemplate binTemplate ) {
         binTemplate = binServer.mergeBin(binTemplate, id );
         if( binTemplate != null){
             return new ResponseEntity<Object>(binTemplate, HttpStatus.OK);

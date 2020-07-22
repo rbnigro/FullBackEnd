@@ -55,9 +55,9 @@ public class BinControllerTest {
 
 
     }
-    @Test
+   /* @Test
     public void postErrorSave() {
         given(this.binServer.saveBin(any(BinTemplate.class))).willThrow(Exception.class);
     }
-
+*/
 }

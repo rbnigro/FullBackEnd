@@ -11,6 +11,8 @@ import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
 public interface BinTemplateToBinModel {
 
     BinTemplateToBinModel MAPPER = Mappers.getMapper(BinTemplateToBinModel.class);
+
+    @Mapping(source = "idBrand", target = "brand.idBrand")
     Bin binMapper (BinTemplate binTemplate);
 
     void updateBinFromBinTemplate(BinTemplate template, @MappingTarget Bin binModel);

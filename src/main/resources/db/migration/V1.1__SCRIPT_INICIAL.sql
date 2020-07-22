@@ -49,3 +49,4 @@ CREATE TABLE cardvalidator.bin_bin_type (
   constraint FK_bin_bin_type foreign key (binid_bin) references bin(id_bin),
   constraint FK_bin_bin_type2 foreign key (bin_typeid_type) references bin_type(id_type)
   );
+

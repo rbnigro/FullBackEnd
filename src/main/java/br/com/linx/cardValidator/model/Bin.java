@@ -20,7 +20,7 @@ import java.util.Set;
 public class Bin implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_bin")
     private Long idBin;
 
@@ -39,9 +39,9 @@ public class Bin implements Serializable {
 
     @ManyToMany(cascade = {CascadeType.DETACH})
     @JoinTable(
-        name = "bin_bin_type",
-        joinColumns = {@JoinColumn(name="binid_bin", referencedColumnName="id_bin")},
-        inverseJoinColumns = @JoinColumn(name="bin_typeid_type", referencedColumnName="id_type"))
+            name = "bin_bin_type",
+            joinColumns = {@JoinColumn(name="binid_bin", referencedColumnName="id_bin")},
+            inverseJoinColumns = @JoinColumn(name="bin_typeid_type", referencedColumnName="id_type"))
     private Set<BinType> linkedBinTypes;
 
     @Column(name="created_at")

@@ -4,7 +4,9 @@ import br.com.linx.cardValidator.dto.BinDTO;
 import br.com.linx.cardValidator.mapper.BinModelToBinTemplate;
 import br.com.linx.cardValidator.mapper.BinTemplateToBinModel;
 import br.com.linx.cardValidator.model.Bin;
+import br.com.linx.cardValidator.model.Brand;
 import br.com.linx.cardValidator.repository.BinRepository;
+import br.com.linx.cardValidator.repository.BrandRespository;
 import br.com.linx.cardValidator.templates.BinTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,13 +34,23 @@ public class BinServer {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private BrandRespository brandRespository;
+
     //inclusao unitaria
-    public BinTemplate saveBin (BinTemplate binTemplate){
+    public BinTemplate saveBin (BinTemplate binTemplate) throws Exception{
         log.info("[CARDVALIDATOR] -saving bin");
+
         if (binTemplate.getCreatedAt()==null){
             binTemplate.setCreatedAt(LocalDateTime.now());
         }
-        Bin binModel = binRepository.save(BinTemplateToBinModel.MAPPER.binMapper(binTemplate));
+        Bin binModel = BinTemplateToBinModel.MAPPER.binMapper(binTemplate);
+        binModel.setBrand(brandRespository.findByIdBrand(binTemplate.getIdBrand()));
+
+        if(binModel.getBrand()==null) {
+            throw new Exception("message: id_brand not found");
+        }
+        binModel = binRepository.save(binModel);
         return BinModelToBinTemplate.MAPPER.binTemplateMapper(binModel);
 
     }
@@ -46,8 +59,17 @@ public class BinServer {
         log.info("[CARDVALIDATOR] -saving bin");
         List<Bin> binModels = binTemplate
                 .stream()
-                .map(element -> BinTemplateToBinModel.MAPPER.binMapper(element))
+                .map(element ->
+                    BinTemplateToBinModel.MAPPER.binMapper(element)
+                )
                 .collect(Collectors.toList());
+
+        binModels.forEach(element-> {
+            element.setBrand(getBrand(element.getBrand().getIdBrand()));
+            if(element.getBrand() ==null) {
+                binModels.remove(element);
+            }
+        });
 
         List<Bin> binModels_ = binRepository.saveAll(binModels);
         return binModels_.stream().map(element -> BinModelToBinTemplate.MAPPER.binTemplateMapper(element)).collect(Collectors.toList());
@@ -95,4 +117,11 @@ public class BinServer {
          return return_==1;
     }
 
+    private Brand getBrand(Long idbrand) {
+        Optional<Brand> brand = this.brandRespository.findById(idbrand);
+        if (brand.isPresent())
+            return brand.get();
+
+        return null;
+    }
 }

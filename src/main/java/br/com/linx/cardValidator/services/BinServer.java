@@ -1,11 +1,15 @@
 package br.com.linx.cardValidator.services;
 
 import br.com.linx.cardValidator.dto.BinDTO;
+import br.com.linx.cardValidator.dto.BinErrorDTO;
+import br.com.linx.cardValidator.dto.BinTemplates;
 import br.com.linx.cardValidator.mapper.BinModelToBinTemplate;
 import br.com.linx.cardValidator.mapper.BinTemplateToBinModel;
 import br.com.linx.cardValidator.model.Bin;
+import br.com.linx.cardValidator.model.BinType;
 import br.com.linx.cardValidator.model.Brand;
 import br.com.linx.cardValidator.repository.BinRepository;
+import br.com.linx.cardValidator.repository.BinTypeRepository;
 import br.com.linx.cardValidator.repository.BrandRespository;
 import br.com.linx.cardValidator.templates.BinTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,9 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +39,9 @@ public class BinServer {
     @Autowired
     private BrandRespository brandRespository;
 
+    @Autowired
+    private BinTypeRepository binTypeRepository;
+
     //inclusao unitaria
     public BinTemplate saveBin (BinTemplate binTemplate) throws Exception{
         log.info("[CARDVALIDATOR] -saving bin");
@@ -51,29 +56,55 @@ public class BinServer {
         if(binModel.getBrand()==null) {
             throw new Exception("message: id_brand not found");
         }
+
+        Optional<BinType> binTypeModel = this.binTypeRepository.findById(binTemplate.getIdType());
+        if (!binTypeModel.isPresent()){
+            throw  new Exception("id type not found");
+        }
+        binModel.setLinkedBinTypes(new HashSet<>());
+        binModel.getLinkedBinTypes().add(binTypeModel.get());
         binModel = binRepository.save(binModel);
+
         return BinModelToBinTemplate.MAPPER.binTemplateMapper(binModel);
 
     }
 
-    public List<BinTemplate> saveBin (List<BinTemplate> binTemplate){
+    public BinTemplates saveBin (List<BinTemplate> binTemplate) throws Exception{
         log.info("[CARDVALIDATOR] -saving bin");
+        List<BinErrorDTO> binErrorDTOs = new ArrayList<>();
         List<Bin> binModels = binTemplate
                 .stream()
                 .map(element ->
                     BinTemplateToBinModel.MAPPER.binMapper(element)
                 )
                 .collect(Collectors.toList());
+        for (BinTemplate element : binTemplate) {
+            for (int i =0; i < binModels.size(); i++) {
+                if (binModels.get(i).getBin().equals(element.getBin())){
+                    binModels.get(i).setLinkedBinTypes(new HashSet<>());
+                    if(element.getIdType() != null)
+                        binModels.get(i).getLinkedBinTypes().add(this.binTypeRepository.findById(element.getIdType()).get());
+                    else {
+                        if(binModels.size() == 1) {
+                            throw new Exception("Id type not found");
+                        }
+                        binModels.remove(binModels.get(i));
+                        binErrorDTOs.add(new BinErrorDTO("Id type not Found ", BinModelToBinTemplate.MAPPER.binTemplateMapper(binModels.get(i))));
+                    }
+                }
+            }
+        }
 
         binModels.forEach(element-> {
-            element.setBrand(getBrand(element.getBrand().getIdBrand()));
             if(element.getBrand() ==null) {
                 binModels.remove(element);
+                binErrorDTOs.add(new BinErrorDTO("Id Brand not Found ", BinModelToBinTemplate.MAPPER.binTemplateMapper(element)));
             }
         });
 
         List<Bin> binModels_ = binRepository.saveAll(binModels);
-        return binModels_.stream().map(element -> BinModelToBinTemplate.MAPPER.binTemplateMapper(element)).collect(Collectors.toList());
+        List<BinTemplate> binTemplatesSuccess = binModels_.stream().map(element -> BinModelToBinTemplate.MAPPER.binTemplateMapper(element)).collect(Collectors.toList());
+        return new BinTemplates(binTemplatesSuccess, binErrorDTOs ) ;
     }
 
     //alteracao mod 1

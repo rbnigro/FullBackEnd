@@ -28,6 +28,7 @@ public class BinTemplate {
     private Long bin;
     private String country;
     private String status;
+    private Long idType;
     @NotNull
     @NotEmpty
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")

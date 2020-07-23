@@ -1,5 +1,6 @@
 package br.com.linx.cardValidator.controller;
 
+import br.com.linx.cardValidator.dto.BinTemplates;
 import br.com.linx.cardValidator.model.Bin;
 import br.com.linx.cardValidator.model.BinType;
 import br.com.linx.cardValidator.repository.BinRepository;
@@ -13,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Set;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +52,14 @@ public class BinController<binTemplate> {
             consumes = {"application/json"})
     @ApiOperation(value = "Cadastra o numero do bin (em lote)")
     public ResponseEntity<?> registerAllBin(@RequestBody(required = true) List<BinTemplate> binTemplate) {
-        binTemplate = this.binServer.saveBin(binTemplate);
-        return new ResponseEntity<List<BinTemplate>>(binTemplate, HttpStatus.OK);
+        BinTemplates binTemplates = null;
+        try {
+            binTemplates = this.binServer.saveBin(binTemplate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<BinTemplates>(binTemplates, HttpStatus.OK);
     }
 
     // Busca um idBin especifico

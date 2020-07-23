@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,10 +21,10 @@ public class Bin implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_bin")
+    @Column(name = "id_bin")
     private Long idBin;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "id_brand")
     private Brand brand;
 
@@ -36,19 +37,20 @@ public class Bin implements Serializable {
     @Column(length = 10)
     private String status;
 
-    @ManyToMany(cascade = {CascadeType.DETACH})
+    @ManyToMany()
     @JoinTable(
             name = "bin_bin_type",
-            joinColumns = {@JoinColumn(name="binid_bin", referencedColumnName="id_bin")},
-            inverseJoinColumns = @JoinColumn(name="bin_typeid_type", referencedColumnName="id_type"))
-    private List<BinType> linkedBinTypes;
+            joinColumns = {@JoinColumn(name = "binid_bin", referencedColumnName = "id_bin")},
+            inverseJoinColumns = @JoinColumn(name = "bin_typeid_type", referencedColumnName = "id_type"))
 
-    @Column(name="created_at")
+    private Set<BinType> linkedBinTypes;
+
+
+    @Column(name = "created_at")
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime createdAt;
 
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
     private LocalDateTime updatedAt;
-
 }

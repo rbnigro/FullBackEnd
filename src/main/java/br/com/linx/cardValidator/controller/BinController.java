@@ -1,6 +1,7 @@
 package br.com.linx.cardValidator.controller;
 
 import br.com.linx.cardValidator.model.Bin;
+import br.com.linx.cardValidator.model.BinType;
 import br.com.linx.cardValidator.repository.BinRepository;
 import br.com.linx.cardValidator.services.BinServer;
 import br.com.linx.cardValidator.templates.BinTemplate;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("cardvalidator")
@@ -33,7 +35,6 @@ public class BinController<binTemplate> {
             consumes = {"application/json"})
     @ApiOperation(value = "Cadastra o numero do bin")
     public ResponseEntity<?> registerBin(@RequestBody BinTemplate binTemplate) {
-
 
         try {
             binTemplate = this.binServer.saveBin(binTemplate);
@@ -63,11 +64,11 @@ public class BinController<binTemplate> {
     }
 
     // Busca um Bin específico
-    @RequestMapping(value = "/bin/bin/{bin}",method = RequestMethod.GET,
+    @RequestMapping(value = {"/bin/bin/{bin}", "/bin/bin/{bin}/{tipo}"}, method = RequestMethod.GET,
             produces = {"application/json"})
     @ApiOperation(value = "Busca um numero de Bin especifico")
-    public ResponseEntity<?> findByBin(@PathVariable("bin") Long bin) {
-        return new ResponseEntity<>(binServer.findByBin(bin), HttpStatus.OK);
+    public ResponseEntity<?> findByBin(@PathVariable(name = "bin") Long bin, @PathVariable(name = "tipo", required = false) String tipo) {
+        return new ResponseEntity<>(binServer.findByBin(bin, tipo), HttpStatus.OK);
     }
 
     // lista todos os bins paginado

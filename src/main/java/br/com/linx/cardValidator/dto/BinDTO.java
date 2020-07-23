@@ -8,8 +8,10 @@ public class BinDTO {
     private String status;
     private String brand;
     private String description;
+    private String descType;
+    private Boolean paymentTypeIsValid;
 
-    public BinDTO(Long idBin, Long bin, String country, String status, String brand, String description) {
+    public BinDTO(Long idBin, Long bin, String country, String status, String brand, String description, String descType) {
         super();
         this.idBin = idBin;
         this.bin = bin;
@@ -17,6 +19,7 @@ public class BinDTO {
         this.status = status;
         this.brand = brand;
         this.description = description;
+        this.descType = descType;
     }
 
     public Long getBin() {
@@ -65,5 +68,21 @@ public class BinDTO {
 
     public void setIdBin(Long idBin) {
         this.idBin = idBin;
+    }
+
+    public String getDescType() {
+        return descType;
+    }
+
+    public void setDescType(String descType) {
+        this.descType = descType;
+    }
+
+    public Boolean getPaymentTypeIsValid() {
+        return paymentTypeIsValid;
+    }
+
+    public void setPaymentTypeIsValid(Boolean paymentTypeIsValid) {
+        this.paymentTypeIsValid = paymentTypeIsValid;
     }
 }

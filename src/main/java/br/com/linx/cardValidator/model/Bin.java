@@ -5,11 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,7 +41,7 @@ public class Bin implements Serializable {
             name = "bin_bin_type",
             joinColumns = {@JoinColumn(name="binid_bin", referencedColumnName="id_bin")},
             inverseJoinColumns = @JoinColumn(name="bin_typeid_type", referencedColumnName="id_type"))
-    private Set<BinType> linkedBinTypes;
+    private List<BinType> linkedBinTypes;
 
     @Column(name="created_at")
     @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss", timezone = "UTC")

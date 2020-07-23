@@ -41,6 +41,7 @@ public class BinServer {
     public BinTemplate saveBin (BinTemplate binTemplate) throws Exception{
         log.info("[CARDVALIDATOR] -saving bin");
 
+
         if (binTemplate.getCreatedAt()==null){
             binTemplate.setCreatedAt(LocalDateTime.now());
         }
@@ -98,8 +99,9 @@ public class BinServer {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public BinDTO findByBin(Long numeroBin) {
+    public BinDTO findByBin(Long numeroBin, String tipo) {
         BinDTO binDTO =  binRepository.findByBin(numeroBin);
+        binDTO.setPaymentTypeIsValid(!(tipo == null || tipo.isEmpty()) ? (tipo.equals(binDTO.getDescType())) : true);
         return binDTO;
     }
 
@@ -109,11 +111,6 @@ public class BinServer {
         binRepository.findAll(pageable).forEach(bins::add);
         return bins;
     }
-
-
-
-
-
 
    @Transactional
     public boolean markEntryAsRead (Long idBin, String status){

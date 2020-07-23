@@ -80,15 +80,11 @@
 	{
 	  "brand": "506725",
 	  "createdAt": "2020-07-12T23:26:25"
-	  
 	}
 	
-	ok
-	
+
 	1.6- exclusão logica ##(não planejado)
-	
-	
-	
+
 *bin_type	
 	
 	1.1- inclusão individual
@@ -100,43 +96,28 @@
 
 	ok
 	
-		
 	1.2- inclusão em grupo ##(não planejado)
-	
-		
+
 	1.3- consulta individual ##(não planejado)
-	
 	
 	1.4- consulta de todos
 	
 	json(n/a)
 	
-	ok
-	
-	1.5- Edição dos dados() 
+	1.5- Edição dos dados()
 	
 	json
 	{
-  
 	  "description": "combustivel"
-	  
 	}
 	
-	ok
-	
-	
+
 	1.6- exclusão logica  ##(não planejado)
-	
-	
-	
-	
+
 	
 	observações:
 	
 	url: http://localhost:8080/swagger-ui.html
-	
-	
-	
 	
 	
 	workshop

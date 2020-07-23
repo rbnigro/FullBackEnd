@@ -12,10 +12,13 @@ public interface BinRepository extends JpaRepository<Bin, Long> {
     Bin findByIdBin(final Long id_bin);
 
     /* Bim por Status - Inicio */
-    @Query(value = "SELECT NEW br.com.linx.cardValidator.dto.BinDTO(b.idBin, b.bin, b.country, b.status, " +
-            "b.brand.brand, b.brand.description) " +
-            "from Bin AS b " +
-            "where (b.bin = :bin) and (b.status = 'ativo')")
+    @Query(value = "SELECT NEW br.com.linx.cardValidator.dto.BinDTO(b.idBin, b.bin, b.country, " +
+            "b.status, b.brand.brand, r.description, l.description as descType) " +
+            "from Bin as b " +
+            "join b.brand as r " +
+            "join b.linkedBinTypes as l " +
+            "where (b.bin = :bin) " +
+            "and (b.status = 'ativo')")
     BinDTO findByBin(@Param("bin") final Long bin);
     /* Bim por Status - Fim */
 
